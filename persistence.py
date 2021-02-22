@@ -1,8 +1,11 @@
 import csv
+import os.path
 
-STATUSES_FILE = './data/statuses.csv'
-BOARDS_FILE = './data/boards.csv'
-CARDS_FILE = './data/cards.csv'
+SCRIPT_PATH = os.path.dirname(os.path.abspath(__file__))
+STATUSES_FILE = SCRIPT_PATH + '/data/statuses.csv'
+BOARDS_FILE = SCRIPT_PATH + '/data/boards.csv'
+CARDS_FILE = SCRIPT_PATH + '/data/cards.csv'
+
 
 _cache = {}  # We store cached data in this dict to avoid multiple file readings
 
