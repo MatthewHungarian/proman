@@ -128,11 +128,20 @@ export let dom = {
         let boardTitles = document.getElementsByClassName("board-title");
         for (let boardTitle of boardTitles){
             boardTitle.addEventListener("click", function(){
-                let boardId = boardTitle.dataset.id;
                 let oldValue = boardTitle.innerHTML;
                 boardTitle.style.visibility = "hidden";
-                const outerHtml = `<input type="text" id="rename" name="rename-board" value="${oldValue}">`;
+                const outerHtml = `<input class="rename" type="text" id="rename-input" name="rename-board" value="${oldValue}">
+                                <button id ="rename-button">SAVE</button>`;
                 boardTitle.insertAdjacentHTML('beforebegin', outerHtml);
+                document.getElementById("rename-button").addEventListener("click", function(){
+                   boardTitle.style.visibility = "visible";
+                   boardTitle.innerHTML = document.getElementById("rename-input").value;
+                   document.getElementById("rename-input").remove();
+                   document.getElementById("rename-button").remove();
+                   let boardId = boardTitle.dataset.id;
+                   let data = {title: `${boardTitle.innerHTML}`, board_id: boardId};
+                   dataHandler._api_post('/rename-board', data);
+                });
             });
         }
     }

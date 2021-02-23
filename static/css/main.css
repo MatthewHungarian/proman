@@ -64,6 +64,12 @@ section.board{
     display: inline-block;
 }
 
+.rename{
+    margin: 13px;
+    display: inline-block;
+    font-size: 20px;
+}
+
 .board-toggle{
     float: right;
     margin: 13px;
