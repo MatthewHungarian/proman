@@ -32,7 +32,13 @@ def get_cards_for_board(board_id: int):
     All cards that belongs to a board
     :param board_id: id of the parent board
     """
-    return data_handler.get_cards_for_board(board_id)
+    return data_handler.get_cards(board_id)
+
+
+@app.route("/get-statuses")
+@json_response
+def get_statuses():
+    return data_handler.get_statuses()
 
 
 def main():

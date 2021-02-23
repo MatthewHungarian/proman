@@ -9,9 +9,7 @@ export let dom = {
         // retrieves boards and makes showBoards called
         dataHandler.getBoards(function(boards){
             dom.showBoards(boards);
-            for (let i = 1; i <= 2; i++){
-                dom.loadCards(i);
-            }
+            dom.loadStatuses();
         });
     },
     showBoards: function (boards) {
@@ -22,8 +20,8 @@ export let dom = {
 
         for(let board of boards){
             boardList += `
-                <section class="board">
-                <div class="board-header" id="board${board.id}"><span class="board-title">${board.title}</span></div>
+                <section class="board" id="board${board.id}">
+                <div class="board-header"><span class="board-title">${board.title}</span></div>
                 </section>
             `;
         }
@@ -40,29 +38,61 @@ export let dom = {
     loadCards: function (boardId) {
         // retrieves cards and makes showCards called
         dataHandler.getCardsByBoardId(boardId, function(cards){
-            dom.showCards(cards, boardId);
+            dom.showCards(cards);
         });
     },
-    showCards: function (cards, boardId) {
+    showCards: function (cards) {
         // shows the cards of a board
         // it adds necessary event listeners also
-        let cardList = '';
+        let outerHtml = '';
 
         for(let card of cards){
-            cardList += `
-                <div class="card-title">${card.title}</div>
+            outerHtml = `
+                <div class="card">
+                    <div class="card-title">${card.title}</div>
+                </div>
+            `;
+
+            let cardContainer = document.getElementById(`board${card.board_id}`);
+            let cardColumn = cardContainer.getElementsByClassName(`status${card.status_id}`)[0];
+            cardColumn.insertAdjacentHTML('beforeend', outerHtml);
+        }
+
+    },
+    loadStatuses: function () {
+        // retrieves cards and makes showCards called
+        dataHandler.getStatuses( function(statuses){
+            dom.showStatuses(statuses);
+            for (let i = 1; i <= 2; i++){
+                dom.loadCards(i);
+            }
+        });
+    },
+    showStatuses: function (statuses) {
+        // shows boards appending them to #boards div
+        // it adds necessary event listeners also
+
+        let statusList = '';
+
+        for(let status of statuses){
+            statusList += `
+                <div class="board-column">
+                    <div class="board-column-title">${status.title}</div>
+                    <div class="board-column-content status${status.id}"></div>
+                </div>
             `;
         }
 
         const outerHtml = `
-            <div class="card">
-                ${cardList}
+            <div class="board-columns">
+                ${statusList}
             </div>
         `;
 
-
-        let cardContainer = document.getElementById(`board${boardId}`);
-        cardContainer.insertAdjacentHTML('afterend', outerHtml);
+        let statusesContainer = document.querySelectorAll('.board-header');
+        statusesContainer.forEach(status => {
+            status.insertAdjacentHTML("afterend", outerHtml);
+        });
 
     },
     // here comes `more features

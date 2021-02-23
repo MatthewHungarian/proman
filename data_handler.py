@@ -20,6 +20,10 @@ def get_boards():
     return data.get_data("boards")
 
 
+def get_statuses():
+    return data.get_data("statuses")
+
+
 def get_cards_for_board(board_id):
     persistence.clear_cache()
     all_cards = persistence.get_cards()
@@ -28,4 +32,9 @@ def get_cards_for_board(board_id):
         if card['board_id'] == str(board_id):
             card['status_id'] = get_card_status(card['status_id'])  # Set textual status for the card
             matching_cards.append(card)
+    print(matching_cards)
     return matching_cards
+
+
+def get_cards(board_id):
+    return data.get_row("cards", board_id, "board_id")
