@@ -1,4 +1,5 @@
 import persistence
+import data
 
 
 def get_card_status(status_id):
@@ -28,3 +29,6 @@ def get_cards_for_board(board_id):
             card['status_id'] = get_card_status(card['status_id'])  # Set textual status for the card
             matching_cards.append(card)
     return matching_cards
+
+def rename_board(board_id, new_name):
+    return data.update_board(board_id, new_name)

@@ -32,6 +32,14 @@ def get_cards_for_board(board_id: int):
     """
     return data_handler.get_cards_for_board(board_id)
 
+@app.route("/rename-boards")
+@json_response
+def rename_boards(board_id: int, new_name: str):
+    """
+    Rename the board
+    """
+    return data_handler.rename_board(board_id, new_name)
+
 
 def main():
     app.run(debug=True)

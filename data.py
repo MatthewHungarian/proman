@@ -22,3 +22,7 @@ def get_row(cursor: RealDictCursor, table: str, text_id: int, col: str):
 @database_common.connection_handler
 def delete_row(cursor: RealDictCursor, table: str, id: int):
     cursor.execute(f"DELETE FROM {table} WHERE id = {id}")
+
+@database_common.connection_handler
+def update_board(cursor: RealDictCursor, board_id: int, new_title: str):
+    cursor.execute(f"UPDATE boards SET title = {new_title} WHERE id = {board_id}")
