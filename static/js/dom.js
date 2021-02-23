@@ -9,6 +9,9 @@ export let dom = {
         // retrieves boards and makes showBoards called
         dataHandler.getBoards(function(boards){
             dom.showBoards(boards);
+            for (let i = 1; i <= 2; i++){
+                dom.loadCards(i);
+            }
         });
     },
     showBoards: function (boards) {
