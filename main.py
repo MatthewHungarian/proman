@@ -11,8 +11,10 @@ def index():
     """
     This is a one-pager which shows all the boards and cards
     """
-    # if method == "POST":
-    #     create_new_public_board(request.form["title"])
+    if request.method == "POST":
+        title = request.get_json()['title']
+        print(title)
+    #     create_new_public_board(title)
     return render_template('index.html')
 
 
