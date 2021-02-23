@@ -17,7 +17,11 @@ def get_boards():
     Gather all boards
     :return:
     """
-    return persistence.get_boards(force=True)
+    return data.get_data("boards")
+
+
+def get_statuses():
+    return data.get_data("statuses")
 
 
 def get_cards_for_board(board_id):
@@ -29,6 +33,11 @@ def get_cards_for_board(board_id):
             card['status_id'] = get_card_status(card['status_id'])  # Set textual status for the card
             matching_cards.append(card)
     return matching_cards
+
+
+def get_cards(board_id):
+    return data.get_row("cards", board_id, "board_id")
+
 
 def rename_board(board_id, new_name):
     return data.update_board(board_id, new_name)

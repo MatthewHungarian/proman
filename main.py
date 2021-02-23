@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request
 from util import json_response
 
 import data_handler
@@ -6,11 +6,15 @@ import data_handler
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
     """
     This is a one-pager which shows all the boards and cards
     """
+    if request.method == "POST":
+        title = request.get_json()['title']
+        print(title)
+    #     create_new_public_board(title)
     return render_template('index.html')
 
 
@@ -30,7 +34,13 @@ def get_cards_for_board(board_id: int):
     All cards that belongs to a board
     :param board_id: id of the parent board
     """
-    return data_handler.get_cards_for_board(board_id)
+    return data_handler.get_cards(board_id)
+
+
+@app.route("/get-statuses")
+@json_response
+def get_statuses():
+    return data_handler.get_statuses()
 
 @app.route("/rename-boards")
 @json_response
