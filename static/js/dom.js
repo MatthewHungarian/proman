@@ -9,6 +9,9 @@ export let dom = {
         // retrieves boards and makes showBoards called
         dataHandler.getBoards(function(boards){
             dom.showBoards(boards);
+            for (let i = 1; i <= 2; i++){
+                dom.loadCards(i);
+            }
         });
     },
     showBoards: function (boards) {
@@ -19,14 +22,16 @@ export let dom = {
 
         for(let board of boards){
             boardList += `
-                <li>${board.title}</li>
+                <section class="board">
+                <div class="board-header" id="board${board.id}"><span class="board-title">${board.title}</span></div>
+                </section>
             `;
         }
 
         const outerHtml = `
-            <ul class="board-container">
+            <div class="board-container">
                 ${boardList}
-            </ul>
+            </div>
         `;
 
         let boardsContainer = document.querySelector('#boards');
@@ -34,10 +39,31 @@ export let dom = {
     },
     loadCards: function (boardId) {
         // retrieves cards and makes showCards called
+        dataHandler.getCardsByBoardId(boardId, function(cards){
+            dom.showCards(cards, boardId);
+        });
     },
-    showCards: function (cards) {
+    showCards: function (cards, boardId) {
         // shows the cards of a board
         // it adds necessary event listeners also
+        let cardList = '';
+
+        for(let card of cards){
+            cardList += `
+                <div class="card-title">${card.title}</div>
+            `;
+        }
+
+        const outerHtml = `
+            <div class="card">
+                ${cardList}
+            </div>
+        `;
+
+
+        let cardContainer = document.getElementById(`board${boardId}`);
+        cardContainer.insertAdjacentHTML('afterend', outerHtml);
+
     },
-    // here comes more features
+    // here comes `more features
 };
