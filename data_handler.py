@@ -1,4 +1,5 @@
 import persistence
+import data
 
 
 def get_card_status(status_id):
@@ -16,7 +17,7 @@ def get_boards():
     Gather all boards
     :return:
     """
-    return persistence.get_boards(force=True)
+    return data.get_data("boards")
 
 
 def get_cards_for_board(board_id):
