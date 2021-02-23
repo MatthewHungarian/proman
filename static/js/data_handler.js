@@ -27,8 +27,9 @@ export let dataHandler = {
         }
         })
         .then(response => response.json())
-        .then(json => {
+        .then(json_response => {
             console.log(json);
+            callback(json_response);
         }
         )
     },

@@ -10,6 +10,7 @@ export let dom = {
         dataHandler.getBoards(function(boards){
             dom.showBoards(boards);
             dom.loadStatuses();
+            dom.renameBoard();
         });
     },
     showBoards: function (boards) {
@@ -21,7 +22,7 @@ export let dom = {
         for(let board of boards){
             boardList += `
                 <section class="board" id="board${board.id}">
-                <div class="board-header"><span class="board-title">${board.title}</span></div>
+                <div class="board-header"><span class="board-title" data-id="${board.id}">${board.title}</span></div>
                 </section>
             `;
         }
@@ -118,8 +119,21 @@ export let dom = {
                     function () {
                                 let title = {title: `${document.getElementById("public-input").value}`}
                                 dataHandler._api_post('/', title)
-                            } )
+                            } );
         }
-    })
+    });
+    },
+
+    renameBoard: function () {
+        let boardTitles = document.getElementsByClassName("board-title");
+        for (let boardTitle of boardTitles){
+            boardTitle.addEventListener("click", function(){
+                let boardId = boardTitle.dataset.id;
+                let oldValue = boardTitle.innerHTML;
+                boardTitle.style.visibility = "hidden";
+                const outerHtml = `<input type="text" id="rename" name="rename-board" value="${oldValue}">`;
+                boardTitle.insertAdjacentHTML('beforebegin', outerHtml);
+            });
+        }
     }
 };
