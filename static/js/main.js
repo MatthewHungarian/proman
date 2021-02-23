@@ -6,6 +6,9 @@ function init() {
     dom.init();
     // loads the boards to the screen
     dom.loadBoards();
+    for (let i = 1; i <= 2; i++){
+        dom.loadCards(i);
+    }
 
 }
 

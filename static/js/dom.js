@@ -20,7 +20,7 @@ export let dom = {
         for(let board of boards){
             boardList += `
                 <section class="board">
-                <div class="board-header"><span class="board-title">${board.title}</span></div>
+                <div class="board-header" id="board${board.id}"><span class="board-title">${board.title}</span></div>
                 </section>
             `;
         }
@@ -36,10 +36,31 @@ export let dom = {
     },
     loadCards: function (boardId) {
         // retrieves cards and makes showCards called
+        dataHandler.getCardsByBoardId(boardId, function(cards){
+            dom.showCards(cards, boardId);
+        });
     },
-    showCards: function (cards) {
+    showCards: function (cards, boardId) {
         // shows the cards of a board
         // it adds necessary event listeners also
+        let cardList = '';
+
+        for(let card of cards){
+            cardList += `
+                <div class="card-title">${card.title}</div>
+            `;
+        }
+
+        const outerHtml = `
+            <div class="card">
+                ${cardList}
+            </div>
+        `;
+
+
+        let cardContainer = document.getElementById(`board${boardId}`);
+        cardContainer.insertAdjacentHTML('afterend', outerHtml);
+
     },
-    // here comes more features
+    // here comes `more features
 };
