@@ -13,8 +13,9 @@ def index():
     """
     if request.method == "POST":
         title = request.get_json()['title']
-        print(title)
-    #     create_new_public_board(title)
+        # user_id = session["user_name"]
+        user_id = 0
+        data_handler.create_board(title, user_id)
     return render_template('index.html')
 
 
