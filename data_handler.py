@@ -48,6 +48,10 @@ def rename_board(board_id, new_name):
     return data.update_board(board_id, new_name)
 
 
+def rename_column(id, new_name):
+    return data.update_column(id, new_name)
+
+
 def create_new_card(card_name, board_id, status_id):
     card_data = {"title": card_name, "board_id": board_id, "status_id": status_id, "order_n": 0}
     return data.add_new_row(card_data, 'cards')

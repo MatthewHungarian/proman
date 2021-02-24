@@ -71,6 +71,12 @@ export let dataHandler = {
         let data = {title: cardTitle, board_id: boardId, status_id: statusId};
         this._api_post('/create-card', data);
         document.location.reload();
+    },
+
+    createNewStatus: function (newStatus) {
+        let data = {"title": newStatus};
+        this._api_post('/add-column', data);
+        document.location.reload();
     }
     // here comes more features
 };

@@ -68,6 +68,14 @@ def add_column():
     return data_handler.add_new_status(data)
 
 
+@app.route("/rename-column", methods=['POST'])
+@json_response
+def rename_column():
+    status_id = request.get_json()['id']
+    new_name = request.get_json()['title']
+    return data_handler.rename_column(status_id, new_name)
+
+
 def main():
     app.run(debug=True)
 
