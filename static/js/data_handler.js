@@ -74,9 +74,14 @@ export let dataHandler = {
     },
 
     createNewStatus: function (newStatus) {
-        let data = {"title": newStatus};
+        let data = {title: newStatus};
         this._api_post('/add-column', data);
         document.location.reload();
-    }
+    },
+
+    updateCardStatus: function (cardId, cardStatus) {
+        let data = {card_id: cardId, status_id: cardStatus};
+        this._api_post('/update-card-status', data);
+    },
     // here comes more features
 };

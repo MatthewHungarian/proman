@@ -1,3 +1,5 @@
+import { dataHandler } from "./data_handler.js";
+
 export let dragAndDrop = {
     initDragAndDrop: function() {
         let draggables = document.querySelectorAll(".card");
@@ -34,7 +36,7 @@ export let dragAndDrop = {
     dragStartHandler: function(e) {
         this.classList.add('dragged', 'drag-feedback');
         e.dataTransfer.setData("type/dragged-box", 'dragged');
-        dragAndDrop.setDropZonesHighlight();
+        dragAndDrop.setDropZonesHighlight(true, this.dataset.board);
     },
 
     dragEndHandler: function() {
@@ -48,28 +50,33 @@ export let dragAndDrop = {
     },
 
     dropZoneOverHandler: function(e) {
+        let draggedElement = document.querySelector('.dragged');
+        if (draggedElement.dataset.board === this.dataset.board) {
             e.preventDefault();
+        }
     },
 
     dropZoneLeaveHandler: function(e) {
-        if (e.dataTransfer.types.includes(`type/dragged-card`) &&
+        /*if (e.dataTransfer.types.includes(`type/dragged-card`) &&
             e.relatedTarget !== null &&
-            e.currentTarget !== e.relatedTarget.closest('.board-column-content')) {
+            e.currentTarget !== e.relatedTarget.closest('.board-column-content')) {*/
             this.classList.remove("over-zone");
             this.classList.add("active-zone");
-        }
+        //}
     },
 
     dropZoneDropHandler: function(e) {
         let draggedElement = document.querySelector('.dragged');
         e.currentTarget.appendChild(draggedElement);
+        draggedElement.dataset.status = e.currentTarget.dataset.status;
+        dataHandler.updateCardStatus(draggedElement.dataset.id, draggedElement.dataset.status);
         e.preventDefault();
     },
 
-    setDropZonesHighlight: function(highlight = true) {
+    setDropZonesHighlight: function(highlight = true, target) {
         const dropZones = document.querySelectorAll(".board-column-content");
         for (const dropZone of dropZones) {
-            if (highlight) {
+            if (highlight && dropZone.dataset.board === target) {
                 dropZone.classList.add("active-zone");
             } else {
                 dropZone.classList.remove("active-zone");

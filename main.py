@@ -60,12 +60,19 @@ def create_card():
     status_id = request.get_json()['status_id']
     return data_handler.create_new_card(card_title, board_id, status_id)
 
-  
+
 @app.route("/add-column", methods=['POST'])
 @json_response
 def add_column():
     data = request.get_json()
     return data_handler.add_new_status(data)
+
+
+@app.route("/update-card-status", methods=['POST'])
+@json_response
+def update_card_status():
+    data = request.get_json()
+    return data_handler.update_card_status(data)
 
 
 def main():

@@ -24,7 +24,7 @@ export let dom = {
         for(let board of boards){
             boardList += `
                 <section class="board" id="board${board.id}">
-                <div class="board-header"><span class="board-title" data-id="${board.id}">${board.title}</span></div>
+                <div class="board-header" id="header${board.id}"><span class="board-title" data-id="${board.id}">${board.title}</span></div>
                 </section>
             `;
         }
@@ -51,7 +51,7 @@ export let dom = {
 
         for(let card of cards){
             outerHtml = `
-                <div class="card">
+                <div class="card" data-board="${card.board_id}" data-status="${card.status_id}" data-id="${card.id}">
                     <div class="card-title">${card.title}</div>
                 </div>
             `;
@@ -65,15 +65,15 @@ export let dom = {
     loadStatuses: function (boards) {
         // retrieves cards and makes showCards called
         dataHandler.getStatuses( function(statuses){
-            dom.showStatuses(statuses);
             for (let board of boards){
+                dom.showStatuses(statuses, board["id"]);
                 dom.loadCards(board["id"]);
             }
             setTimeout(() => {dragAndDrop.initDragAndDrop()}, 300);
             dom.addStatus();
         });
     },
-    showStatuses: function (statuses) {
+    showStatuses: function (statuses, board) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
 
@@ -83,7 +83,7 @@ export let dom = {
             statusList += `
                 <div class="board-column">
                     <div class="board-column-title">${status.title}</div>
-                    <div class="board-column-content status${status.id}"></div>
+                    <div class="board-column-content status${status.id}" data-board="${board}" data-status="${status.id}"></div>
                 </div>
             `;
         }
@@ -94,10 +94,12 @@ export let dom = {
             </div>
         `;
 
-        let statusesContainer = document.querySelectorAll('.board-header');
+        /*let statusesContainer = document.querySelectorAll('.board-header');
         statusesContainer.forEach(status => {
             status.insertAdjacentHTML("afterend", outerHtml);
-        });
+        });*/
+        let statusesContainer = document.getElementById(`header${board}`);
+        statusesContainer.insertAdjacentHTML("afterend", outerHtml);
 
     },
     createNewBoardField: function () {
