@@ -52,6 +52,13 @@ def rename_board():
     return data_handler.rename_board(board_id, new_name)
 
 
+@app.route("/add-column", methods=['POST'])
+@json_response
+def add_column():
+    data = request.get_json()
+    return data_handler.add_new_status(data)
+
+
 def main():
     app.run(debug=True)
 

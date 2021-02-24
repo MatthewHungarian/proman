@@ -48,3 +48,5 @@ def rename_board(board_id, new_name):
     return data.update_board(board_id, new_name)
 
 
+def add_new_status(new_status):
+    return data.add_new_row(new_status, "statuses")

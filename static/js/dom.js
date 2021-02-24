@@ -67,6 +67,7 @@ export let dom = {
             for (let board of boards){
                 dom.loadCards(board["id"]);
             }
+            dom.addStatus();
         });
     },
     showStatuses: function (statuses) {
@@ -144,5 +145,28 @@ export let dom = {
                 });
             });
         }
+    },
+
+    addStatus: function () {
+        const newStatusButton = document.getElementById("add-new-column");
+        newStatusButton.addEventListener("click", function (event) {
+            if (newStatusButton.classList.contains("clicked")) {
+                event.preventDefault();
+            } else {
+                newStatusButton.classList.add("clicked");
+                let inputContainer = document.getElementById("new-column-div");
+                const outerHtml = `<input type="text" id="new-status-input"><button id="save-button">SAVE</button>`;
+                inputContainer.insertAdjacentHTML("beforeend", outerHtml);
+                document.getElementById("save-button").addEventListener("click", function () {
+                    let newStatus = document.getElementById("new-status-input").value;
+                    let data = {"title": newStatus};
+                    newStatusButton.classList.remove("clicked");
+                    document.getElementById("new-status-input").remove();
+                    document.getElementById("save-button").remove();
+                    dataHandler._api_post('/add-column', data);
+                    document.location.reload();
+                });
+            }
+        });
     }
 };
