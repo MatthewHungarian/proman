@@ -1,6 +1,6 @@
 // It uses data_handler.js to visualize elements
 import { dataHandler } from "./data_handler.js";
-import {dragAndDrop} from "./drag_and_drop";
+import {dragAndDrop} from "./drag_and_drop.js";
 
 export let dom = {
     init: function () {
