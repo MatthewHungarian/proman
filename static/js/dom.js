@@ -188,12 +188,10 @@ export let dom = {
                     let newStatus = document.getElementById("new-status-input").value;
                     if (newStatus === "") alert("Please don't leave this field empty");
                     else {
-                        let data = {"title": newStatus};
                         newStatusButton.classList.remove("clicked");
                         document.getElementById("new-status-input").remove();
                         document.getElementById("save-button").remove();
-                        dataHandler._api_post('/add-column', data);
-                        document.location.reload();
+                        dataHandler.createNewStatus(newStatus);
                     }
                 });
             }
