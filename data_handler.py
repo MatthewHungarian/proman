@@ -56,6 +56,10 @@ def create_new_card(card_name, board_id, status_id):
     card_data = {"title": card_name, "board_id": board_id, "status_id": status_id, "order_n": 0}
     return data.add_new_row(card_data, 'cards')
 
-  
+
 def add_new_status(new_status):
     return data.add_new_row(new_status, "statuses")
+
+
+def update_card_status(card_data):
+    return data.update_card_status(card_data['card_id'], card_data['status_id'])

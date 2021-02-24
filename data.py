@@ -16,7 +16,10 @@ def add_new_row(cursor: DictCursor, dictionary: dict, target_table: str):
 
 @database_common.connection_handler
 def get_row(cursor: RealDictCursor, table: str, text_id: int, col: str):
-    query = f"SELECT * FROM {table} WHERE {col} = '{text_id}'"
+    if table == "cards":
+        query = f"SELECT * FROM {table}  WHERE {col} = '{text_id}' ORDER BY {col}, order_n"
+    else:
+        query = f"SELECT * FROM {table} WHERE {col} = '{text_id}'"
     cursor.execute(query)
     data = cursor.fetchall()
     return data
@@ -39,6 +42,11 @@ def update_board(cursor: RealDictCursor, board_id: int, new_title: str):
     cursor.execute(f"UPDATE boards SET title = '{new_title}' WHERE id = {board_id}")
 
 
+@database_common.connection_handler
+def update_card_status(cursor: RealDictCursor, card_id: int, status_id: int):
+    cursor.execute(f"UPDATE cards SET status_id = '{status_id}' WHERE id = {card_id}")
+
+    
 @database_common.connection_handler
 def update_column(cursor: RealDictCursor, id: int, new_title: str):
     cursor.execute(f"UPDATE statuses SET title = '{new_title}' WHERE id = {id}")
