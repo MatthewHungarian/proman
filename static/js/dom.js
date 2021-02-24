@@ -10,6 +10,7 @@ export let dom = {
         dataHandler.getBoards(function(boards){
             dom.showBoards(boards);
             dom.loadStatuses();
+            dom.renameBoard();
         });
     },
     showBoards: function (boards) {
@@ -21,7 +22,7 @@ export let dom = {
         for(let board of boards){
             boardList += `
                 <section class="board" id="board${board.id}">
-                <div class="board-header"><span class="board-title">${board.title}</span></div>
+                <div class="board-header"><span class="board-title" data-id="${board.id}">${board.title}</span></div>
                 </section>
             `;
         }
@@ -118,8 +119,30 @@ export let dom = {
                     function () {
                                 let title = {title: `${document.getElementById("public-input").value}`}
                                 dataHandler._api_post('/', title)
-                            } )
+                            } );
         }
-    })
+    });
+    },
+
+    renameBoard: function () {
+        let boardTitles = document.getElementsByClassName("board-title");
+        for (let boardTitle of boardTitles){
+            boardTitle.addEventListener("click", function(){
+                let oldValue = boardTitle.innerHTML;
+                boardTitle.style.visibility = "hidden";
+                const outerHtml = `<input class="rename" type="text" id="rename-input" name="rename-board" value="${oldValue}">
+                                <button id ="rename-button">SAVE</button>`;
+                boardTitle.insertAdjacentHTML('beforebegin', outerHtml);
+                document.getElementById("rename-button").addEventListener("click", function(){
+                   boardTitle.style.visibility = "visible";
+                   boardTitle.innerHTML = document.getElementById("rename-input").value;
+                   document.getElementById("rename-input").remove();
+                   document.getElementById("rename-button").remove();
+                   let boardId = boardTitle.dataset.id;
+                   let data = {title: `${boardTitle.innerHTML}`, board_id: boardId};
+                   dataHandler._api_post('/rename-board', data);
+                });
+            });
+        }
     }
 };
