@@ -12,6 +12,7 @@ export let dom = {
             dom.loadStatuses(boards);
             dom.renameBoard();
             dom.createCard();
+            dom.hideNshowBoard();
         });
     },
     showBoards: function (boards) {
@@ -200,6 +201,22 @@ export let dom = {
                 });
             }
         });
+    },
+  
+    hideNshowBoard: function () {
+        const boardHeaders = document.getElementsByClassName("board-header");
+        for (let boardHeader of boardHeaders){
+            boardHeader.addEventListener("click", function (event) {
+                const boardColumns = this.parentNode.getElementsByClassName("board-column")
+                for (let boardColumn of boardColumns){
+                    if (boardColumn.style.display === ""){
+                        boardColumn.style.display = "none"
+                    } else {
+                        boardColumn.style.display = ""
+                    }
+                }
+            })
+        }
     },
 };
 
