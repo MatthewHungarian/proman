@@ -119,9 +119,10 @@ export let dom = {
             }
                 document.getElementById("public-save").addEventListener("click",
                     function () {
-                                let title = {title: `${document.getElementById("public-input").value}`}
-                                dataHandler._api_post('/', title)
-                            } );
+                        let title = {title: `${document.getElementById("public-input").value}`}
+                        dataHandler._api_post('/', title)
+                        document.location.reload();
+                });
         }
     });
     },
@@ -151,27 +152,27 @@ export let dom = {
     },
 
 
-    createCard: function (){
+    createCard: function () {
         let boardTitles = document.getElementsByClassName("board-title");
         for (let boardTitle of boardTitles) {
             const outerHtml = `<button class="add-card-button" data-id="${boardTitle.dataset.id}">Create new card</button>`;
             boardTitle.insertAdjacentHTML('afterend', outerHtml);
-        };
+        }
         let addCardButtons = document.getElementsByClassName("add-card-button");
         for (let addCardButton of addCardButtons) {
             addCardButton.addEventListener("click", function () {
                 if (document.getElementById("card-input") === null) {
                     const outerHtml = `<input class="input-field" type="text" id="card-input"">`;
                     addCardButton.insertAdjacentHTML('beforebegin', outerHtml);
-                }else if (addCardButton.previousSibling.id === "card-input"){
+                } else if (addCardButton.previousSibling.id === "card-input") {
                     let cardId = document.getElementById("card-input").value;
                     let boardId = addCardButton.dataset.id;
                     document.getElementById("card-input").remove();
                     dataHandler.createNewCard(cardId, boardId, 0);
                 }
             });
-        };
-
+        }
+    },
       
     addStatus: function () {
         const newStatusButton = document.getElementById("add-new-column");
