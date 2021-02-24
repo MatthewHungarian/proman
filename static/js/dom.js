@@ -203,10 +203,13 @@ export let dom = {
     }
 
     hideBoard function () {
-        const boardTitleArea = document.getElementById("board");
-        boardTitleArea.addEventListener("click", function (event) {
-            boardTitleArea.style.display = "none"
+        const boardHeaders = document.getElementsByClassName("board-header");
+        for (let boardHeader of boardHeaders){
+            boardHeader.addEventListener("click", function (event) {
+                boardHeader.style.display = "none";
+            }
         }
+
     };
 
     // openBoard function () {};
