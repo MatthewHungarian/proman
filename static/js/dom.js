@@ -11,6 +11,7 @@ export let dom = {
             dom.showBoards(boards);
             dom.loadStatuses(boards);
             dom.renameBoard();
+            dom.createCard();
         });
     },
     showBoards: function (boards) {
@@ -129,24 +130,49 @@ export let dom = {
         let boardTitles = document.getElementsByClassName("board-title");
         for (let boardTitle of boardTitles){
             boardTitle.addEventListener("click", function(){
-                let oldValue = boardTitle.innerHTML;
-                boardTitle.style.visibility = "hidden";
-                const outerHtml = `<input class="rename" type="text" id="rename-input" name="rename-board" value="${oldValue}">
+                if (document.getElementById("rename-input") === null) {
+                    let oldValue = boardTitle.innerHTML;
+                    boardTitle.style.visibility = "hidden";
+                    const outerHtml = `<input class="input-field" type="text" id="rename-input" value="${oldValue}">
                                 <button id ="rename-button">SAVE</button>`;
-                boardTitle.insertAdjacentHTML('beforebegin', outerHtml);
-                document.getElementById("rename-button").addEventListener("click", function(){
-                   boardTitle.style.visibility = "visible";
-                   boardTitle.innerHTML = document.getElementById("rename-input").value;
-                   document.getElementById("rename-input").remove();
-                   document.getElementById("rename-button").remove();
-                   let boardId = boardTitle.dataset.id;
-                   let data = {title: `${boardTitle.innerHTML}`, board_id: boardId};
-                   dataHandler._api_post('/rename-board', data);
-                });
+                    boardTitle.insertAdjacentHTML('beforebegin', outerHtml);
+                    document.getElementById("rename-button").addEventListener("click", function () {
+                        boardTitle.style.visibility = "visible";
+                        boardTitle.innerHTML = document.getElementById("rename-input").value;
+                        document.getElementById("rename-input").remove();
+                        document.getElementById("rename-button").remove();
+                        let boardId = boardTitle.dataset.id;
+                        let data = {title: `${boardTitle.innerHTML}`, board_id: boardId};
+                        dataHandler._api_post('/rename-board', data);
+                    });
+                }
             });
         }
     },
 
+
+    createCard: function (){
+        let boardTitles = document.getElementsByClassName("board-title");
+        for (let boardTitle of boardTitles) {
+            const outerHtml = `<button class="add-card-button" data-id="${boardTitle.dataset.id}">Create new card</button>`;
+            boardTitle.insertAdjacentHTML('afterend', outerHtml);
+        };
+        let addCardButtons = document.getElementsByClassName("add-card-button");
+        for (let addCardButton of addCardButtons) {
+            addCardButton.addEventListener("click", function () {
+                if (document.getElementById("card-input") === null) {
+                    const outerHtml = `<input class="input-field" type="text" id="card-input"">`;
+                    addCardButton.insertAdjacentHTML('beforebegin', outerHtml);
+                }else if (addCardButton.previousSibling.id === "card-input"){
+                    let cardId = document.getElementById("card-input").value;
+                    let boardId = addCardButton.dataset.id;
+                    document.getElementById("card-input").remove();
+                    dataHandler.createNewCard(cardId, boardId, 0);
+                }
+            });
+        };
+
+      
     addStatus: function () {
         const newStatusButton = document.getElementById("add-new-column");
         newStatusButton.addEventListener("click", function (event) {

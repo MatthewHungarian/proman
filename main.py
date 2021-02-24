@@ -52,6 +52,15 @@ def rename_board():
     return data_handler.rename_board(board_id, new_name)
 
 
+@app.route("/create-card", methods=['POST'])
+@json_response
+def create_card():
+    board_id = request.get_json()['board_id']
+    card_title = request.get_json()['title']
+    status_id = request.get_json()['status_id']
+    return data_handler.create_new_card(card_title, board_id, status_id)
+
+  
 @app.route("/add-column", methods=['POST'])
 @json_response
 def add_column():
