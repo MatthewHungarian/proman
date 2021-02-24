@@ -79,11 +79,11 @@ INSERT INTO cards VALUES (0, 'Card 1', 1, 0, 0);
 INSERT INTO cards VALUES (1, 'Card 2', 1, 0, 0);
 INSERT INTO cards VALUES (2, 'Card 1', 1, 1, 0);
 
-INSERT INTO cards VALUES (3, 'Card 1', 1, 2, 0);
+INSERT INTO cards VALUES (3, 'Card 1', 1, 2, 3);
 INSERT INTO cards VALUES (4, 'Card 2', 1, 2, 0);
-INSERT INTO cards VALUES (5, 'Card 3', 1, 2, 0);
-INSERT INTO cards VALUES (6, 'Card 4', 1, 2, 0);
-INSERT INTO cards VALUES (7, 'Card 5', 1, 2, 0);
+INSERT INTO cards VALUES (5, 'Card 3', 1, 2, 4);
+INSERT INTO cards VALUES (6, 'Card 4', 1, 2, 2);
+INSERT INTO cards VALUES (7, 'Card 5', 1, 2, 1);
 
 INSERT INTO cards VALUES (8, 'Card 1', 1, 3, 0);
 INSERT INTO cards VALUES (9, 'Card 2', 1, 3, 0);
@@ -121,7 +121,7 @@ INSERT INTO cards VALUES (34, 'Card 3', 3, 2, 0);
 INSERT INTO cards VALUES (35, 'Card 4', 3, 2, 0);
 INSERT INTO cards VALUES (36, 'Card 5', 3, 2, 0);
 
-INSERT INTO cards VALUES (37, 'Card 1', 3, 3, 0);
+INSERT INTO cards VALUES (37, 'Card 1', 3, 3, 1);
 INSERT INTO cards VALUES (38, 'Card 2', 3, 3, 0);
 INSERT INTO cards VALUES (39, 'Card 3', 3, 3, 0);
 INSERT INTO cards VALUES (40, 'Card 4', 3, 3, 0);

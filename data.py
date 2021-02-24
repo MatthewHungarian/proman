@@ -16,7 +16,10 @@ def add_new_row(cursor: DictCursor, dictionary: dict, target_table: str):
 
 @database_common.connection_handler
 def get_row(cursor: RealDictCursor, table: str, text_id: int, col: str):
-    query = f"SELECT * FROM {table} WHERE {col} = '{text_id}'"
+    if table == "cards":
+        query = f"SELECT * FROM {table}  WHERE {col} = '{text_id}' ORDER BY {col}, order_n"
+    else:
+        query = f"SELECT * FROM {table} WHERE {col} = '{text_id}'"
     cursor.execute(query)
     data = cursor.fetchall()
     return data
