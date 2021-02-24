@@ -69,9 +69,7 @@ export let dataHandler = {
     },
     createNewCard: function (cardTitle, boardId, statusId, callback) {
         let data = {title: cardTitle, board_id: boardId, status_id: statusId};
-        console.log(data);
-        //this._api_post('/create-card', data);
-        callback(response);
+        this._api_post('/create-card', data);
     }
     // here comes more features
 };
