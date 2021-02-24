@@ -164,6 +164,7 @@ export let dom = {
                     document.getElementById("new-status-input").remove();
                     document.getElementById("save-button").remove();
                     dataHandler._api_post('/add-column', data);
+                    document.location.reload();
                 });
             }
         });
