@@ -37,3 +37,8 @@ def get_data(cursor: RealDictCursor, table: str):
 @database_common.connection_handler
 def update_board(cursor: RealDictCursor, board_id: int, new_title: str):
     cursor.execute(f"UPDATE boards SET title = '{new_title}' WHERE id = {board_id}")
+
+
+@database_common.connection_handler
+def update_column(cursor: RealDictCursor, id: int, new_title: str):
+    cursor.execute(f"UPDATE statuses SET title = '{new_title}' WHERE id = {id}")
