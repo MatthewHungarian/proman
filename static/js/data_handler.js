@@ -70,6 +70,7 @@ export let dataHandler = {
     createNewCard: function (cardTitle, boardId, statusId, callback) {
         let data = {title: cardTitle, board_id: boardId, status_id: statusId};
         this._api_post('/create-card', data);
+        document.location.reload();
     }
     // here comes more features
 };
