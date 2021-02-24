@@ -1,5 +1,6 @@
 // It uses data_handler.js to visualize elements
 import { dataHandler } from "./data_handler.js";
+import {dragAndDrop} from "./drag_and_drop";
 
 export let dom = {
     init: function () {
@@ -69,6 +70,7 @@ export let dom = {
                 dom.loadCards(board["id"]);
             }
             dom.addStatus();
+            dragAndDrop.initDragAndDrop();
         });
     },
     showStatuses: function (statuses) {
