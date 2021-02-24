@@ -11,6 +11,7 @@ export let dom = {
             dom.showBoards(boards);
             dom.loadStatuses(boards);
             dom.renameBoard();
+            dom.createCard();
         });
     },
     showBoards: function (boards) {
@@ -144,5 +145,20 @@ export let dom = {
                 });
             });
         }
+    },
+
+    createCard: function (){
+        let boardTitles = document.getElementsByClassName("board-title");
+        for (let boardTitle of boardTitles) {
+            const outerHtml = `<button class="add-card-button" data-id="${boardTitle.dataset.id}">Create new card</button>`;
+            boardTitle.insertAdjacentHTML('afterend', outerHtml);
+        };
+        let addCardButtons = document.getElementsByClassName("add-card-button");
+        for (let addCardButton of addCardButtons) {
+            addCardButton.addEventListener("click", function (){
+                //dataHandler.createNewCard();
+                console.log("hello");
+            });
+        };
     }
 };
