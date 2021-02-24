@@ -16,6 +16,7 @@ def json_response(func):
 
     return decorated_function
 
+
 def generate_col_value_list(dictionary):
     value_list = []
     column_list = []
