@@ -186,12 +186,15 @@ export let dom = {
                 inputContainer.insertAdjacentHTML("beforeend", outerHtml);
                 document.getElementById("save-button").addEventListener("click", function () {
                     let newStatus = document.getElementById("new-status-input").value;
-                    let data = {"title": newStatus};
-                    newStatusButton.classList.remove("clicked");
-                    document.getElementById("new-status-input").remove();
-                    document.getElementById("save-button").remove();
-                    dataHandler._api_post('/add-column', data);
-                    document.location.reload();
+                    if (newStatus === "") alert("Please don't leave this field empty");
+                    else {
+                        let data = {"title": newStatus};
+                        newStatusButton.classList.remove("clicked");
+                        document.getElementById("new-status-input").remove();
+                        document.getElementById("save-button").remove();
+                        dataHandler._api_post('/add-column', data);
+                        document.location.reload();
+                    }
                 });
             }
         });
