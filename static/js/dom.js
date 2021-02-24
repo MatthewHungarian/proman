@@ -12,6 +12,8 @@ export let dom = {
             dom.loadStatuses(boards);
             dom.renameBoard();
             dom.createCard();
+            dom.hideBoard();
+            // dom.openBoard();
         });
     },
     showBoards: function (boards) {
@@ -199,4 +201,13 @@ export let dom = {
             }
         });
     }
+
+    hideBoard function () {
+        const boardTitleArea = document.getElementById("board");
+        boardTitleArea.addEventListener("click", function (event) {
+            boardTitleArea.style.display = "none"
+        }
+    };
+
+    // openBoard function () {};
 };
