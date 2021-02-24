@@ -200,17 +200,22 @@ export let dom = {
                 });
             }
         });
-    }
+    },
 
-    hideBoard function () {
+    hideBoard: function () {
         const boardHeaders = document.getElementsByClassName("board-header");
         for (let boardHeader of boardHeaders){
+            console.log(boardHeader)
+            console.log(boardHeaders)
             boardHeader.addEventListener("click", function (event) {
-                boardHeader.style.display = "none";
-            }
+                const boardColumns = this.parentNode.getElementsByClassName("board-column")
+                for (let boardColumn of boardColumns){
+                    boardColumn.style.display = "none"
+                }
+            })
         }
 
-    };
+    },
 
     // openBoard function () {};
 };
