@@ -34,34 +34,27 @@ export let dragAndDrop = {
     dragStartHandler: function(e) {
         this.classList.add('dragged', 'drag-feedback');
         e.dataTransfer.setData("type/dragged-box", 'dragged');
-        //setDropZonesHighlight();
-        this.deferredOriginChanges(this, 'drag-feedback');
+        dragAndDrop.setDropZonesHighlight();
     },
 
     dragEndHandler: function() {
-        // setDropZonesHighlight(false);
+        dragAndDrop.setDropZonesHighlight(false);
         this.classList.remove('dragged');
     },
 
     dropZoneEnterHandler: function(e) {
-        /*if (canDropHere(e)) {
-            this.classList.add("over-zone");
-            e.preventDefault();
-        } else */if (this.classList.contains("board-column-content")) {
-            this.classList.remove("active-zone");
-        }
+        this.classList.add("over-zone");
+        e.preventDefault();
     },
 
     dropZoneOverHandler: function(e) {
-        /*if (canDropHere(e)) {
             e.preventDefault();
-        }*/
     },
 
     dropZoneLeaveHandler: function(e) {
         if (e.dataTransfer.types.includes(`type/dragged-card`) &&
             e.relatedTarget !== null &&
-            e.currentTarget !== e.relatedTarget.closest('.drop-zone')) {
+            e.currentTarget !== e.relatedTarget.closest('.board-column-content')) {
             this.classList.remove("over-zone");
             this.classList.add("active-zone");
         }
@@ -74,7 +67,7 @@ export let dragAndDrop = {
     },
 
     setDropZonesHighlight: function(highlight = true) {
-        const dropZones = document.querySelectorAll(".drop-zone");
+        const dropZones = document.querySelectorAll(".board-column-content");
         for (const dropZone of dropZones) {
             if (highlight) {
                 dropZone.classList.add("active-zone");
@@ -94,10 +87,4 @@ export let dragAndDrop = {
             e.dataTransfer.types.includes(`type/dragged-${e.currentTarget.parentElement.dataset.acceptedCards}`)
         );
     },
-
-    deferredOriginChanges: function(origin, dragFeedbackClassName) {
-        setTimeout(() => {
-            origin.classList.remove(dragFeedbackClassName);
-        });
-    }
 }

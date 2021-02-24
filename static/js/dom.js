@@ -69,8 +69,8 @@ export let dom = {
             for (let board of boards){
                 dom.loadCards(board["id"]);
             }
+            setTimeout(() => {dragAndDrop.initDragAndDrop()}, 300);
             dom.addStatus();
-            dragAndDrop.initDragAndDrop();
         });
     },
     showStatuses: function (statuses) {
