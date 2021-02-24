@@ -28,6 +28,11 @@ input {
     margin-right: 15px;
 }
 
+input.column-rename {
+    width: 70%;
+    margin-bottom: 0px;
+}
+
 button{
     background: #222;
     color: #fff;

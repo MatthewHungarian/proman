@@ -13,6 +13,7 @@ export let dom = {
             dom.loadStatuses(boards);
             dom.renameBoard();
             dom.createCard();
+            dom.hideNshowBoard();
         });
     },
     showBoards: function (boards) {
@@ -82,7 +83,7 @@ export let dom = {
         for(let status of statuses){
             statusList += `
                 <div class="board-column">
-                    <div class="board-column-title">${status.title}</div>
+                    <div class="board-column-title"><span class="column-title" data-id="${status.id}">${status.title}</span></div>
                     <div class="board-column-content status${status.id}" data-board="${board}" data-status="${status.id}"></div>
                 </div>
             `;
@@ -123,9 +124,13 @@ export let dom = {
             }
                 document.getElementById("public-save").addEventListener("click",
                     function () {
-                        let title = {title: `${document.getElementById("public-input").value}`}
-                        dataHandler._api_post('/', title)
-                        document.location.reload();
+                        if (document.getElementById("public-input").value === "") {
+                            alert("Please don't leave this field empty");
+                        }else {
+                            let title = {title: `${document.getElementById("public-input").value}`}
+                            dataHandler._api_post('/', title)
+                            document.location.reload();
+                        }
                 });
         }
     });
@@ -200,5 +205,50 @@ export let dom = {
                 });
             }
         });
+    },
+  
+    hideNshowBoard: function () {
+        const boardHeaders = document.getElementsByClassName("board-header");
+        for (let boardHeader of boardHeaders){
+            boardHeader.addEventListener("click", function (event) {
+                const boardColumns = this.parentNode.getElementsByClassName("board-column")
+                for (let boardColumn of boardColumns){
+                    if (boardColumn.style.display === ""){
+                        boardColumn.style.display = "none"
+                    } else {
+                        boardColumn.style.display = ""
+                    }
+                }
+            })
+        }
+    },
+};
+
+window.onload = function (){
+    let columnTitles = document.getElementsByClassName("column-title");
+    for (let columnTitle of columnTitles){
+        columnTitle.addEventListener("click", function(){
+            if (document.getElementById("rename-column-input") === null) {
+            let oldValue = columnTitle.innerHTML;
+            columnTitle.style.display = "none";
+            const outerHtml = `<input type="text" id="rename-column-input" class="column-rename" value="${oldValue}">`;
+            columnTitle.insertAdjacentHTML('beforebegin', outerHtml);
+            document.getElementById("rename-column-input").addEventListener("keyup", function (e) {
+            if(e.keyCode === 13 || e.keyCode === 27)
+                columnTitle.style.display = "inline";
+                if (e.keyCode === 13) {
+                    columnTitle.innerHTML = document.getElementById("rename-column-input").value;
+                    document.getElementById("rename-column-input").remove();
+                    let columnId = columnTitle.dataset.id;
+                    let data = {title: `${columnTitle.innerHTML}`, id: columnId};
+                    dataHandler._api_post('/rename-column', data);
+                    document.location.reload();
+                } else if (e.keyCode === 27) {
+                    document.getElementById("rename-column-input").remove();
+                    columnTitle.innerHTML = oldValue;
+                }
+            });
+            }
+        })
     }
 };

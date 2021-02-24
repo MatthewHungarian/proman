@@ -45,3 +45,8 @@ def update_board(cursor: RealDictCursor, board_id: int, new_title: str):
 @database_common.connection_handler
 def update_card_status(cursor: RealDictCursor, card_id: int, status_id: int):
     cursor.execute(f"UPDATE cards SET status_id = '{status_id}' WHERE id = {card_id}")
+
+    
+@database_common.connection_handler
+def update_column(cursor: RealDictCursor, id: int, new_title: str):
+    cursor.execute(f"UPDATE statuses SET title = '{new_title}' WHERE id = {id}")
