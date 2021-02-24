@@ -29,7 +29,7 @@ def delete_row(cursor: RealDictCursor, table: str, id: int):
 
 @database_common.connection_handler
 def get_data(cursor: RealDictCursor, table: str):
-    query = f"SELECT * FROM {table}"
+    query = f"SELECT * FROM {table} ORDER BY id"
     cursor.execute(query)
     return cursor.fetchall()
 

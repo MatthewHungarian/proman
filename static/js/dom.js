@@ -9,7 +9,7 @@ export let dom = {
         // retrieves boards and makes showBoards called
         dataHandler.getBoards(function(boards){
             dom.showBoards(boards);
-            dom.loadStatuses();
+            dom.loadStatuses(boards);
             dom.renameBoard();
         });
     },
@@ -60,12 +60,12 @@ export let dom = {
         }
 
     },
-    loadStatuses: function () {
+    loadStatuses: function (boards) {
         // retrieves cards and makes showCards called
         dataHandler.getStatuses( function(statuses){
             dom.showStatuses(statuses);
-            for (let i = 1; i <= 2; i++){
-                dom.loadCards(i);
+            for (let board of boards){
+                dom.loadCards(board["id"]);
             }
         });
     },

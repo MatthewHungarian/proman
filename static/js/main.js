@@ -4,9 +4,8 @@ import { dom } from "./dom.js";
 function init() {
     // init data
     dom.init();
-    // loads the boards to the screen
     dom.loadBoards();
+    dom.createNewBoardField ();
 }
 
 init();
-dom.createNewBoardField ();
