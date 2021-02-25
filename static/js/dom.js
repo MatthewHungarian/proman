@@ -211,7 +211,8 @@ export let dom = {
         const boardHeaders = document.getElementsByClassName("board-header");
         for (let boardHeader of boardHeaders){
             boardHeader.addEventListener("click", function (event) {
-                const boardColumns = this.parentNode.getElementsByClassName("board-column")
+                if (boardHeader !== event.target) return;
+                const boardColumns = this.parentNode.getElementsByClassName("board-column");
                 for (let boardColumn of boardColumns){
                     if (boardColumn.style.display === ""){
                         boardColumn.style.display = "none"
