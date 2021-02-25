@@ -1,5 +1,6 @@
 import persistence
 import data
+import util
 
 
 def get_card_status(status_id):
@@ -67,3 +68,12 @@ def add_new_status(new_status):
 
 def update_card_status(card_data):
     return data.update_card_status(card_data['card_id'], card_data['status_id'])
+
+
+def check_user_data(username):
+    return data.get_row("users", username, "username")
+
+
+def add_new_user(username, password):
+    hashed_password = util.hash_password(password)
+    return data.add_new_row({"username": username, "hashed_password": hashed_password}, "users")
