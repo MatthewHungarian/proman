@@ -52,8 +52,7 @@ export let dom = {
 
         for(let card of cards){
             outerHtml = `
-                <div class="card" data-board="${card.board_id}" data-status="${card.status_id}" data-id="${card.id}"
-                 data-order="${card.order_n}">
+                <div class="card" data-board="${card.board_id}" data-status="${card.status_id}" data-id="${card.id}">
                     <div class="card-title">${card.title}</div>
                 </div>
             `;

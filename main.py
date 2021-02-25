@@ -74,7 +74,14 @@ def update_card_status():
     data = request.get_json()
     return data_handler.update_card_status(data)
 
-  
+
+@app.route("/update-card-order", methods=['POST'])
+@json_response
+def update_card_order():
+    data = request.get_json()
+    return data_handler.update_card_order(data)
+
+
 @app.route("/rename-column", methods=['POST'])
 @json_response
 def rename_column():
