@@ -235,3 +235,12 @@ section.board{
     min-width: 250px;
     margin: auto;
 }
+
+.flash-message {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.flash-message.error {
+    color: red;
+}
