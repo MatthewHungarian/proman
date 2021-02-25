@@ -48,6 +48,9 @@ export let dragAndDrop = {
 
     dropZoneEnterHandler: function(e) {
         this.classList.add("over-zone");
+        if (e.currentTarget.classList.contains('card')) {
+            dragAndDrop.createGhostCard(e);
+        }
         e.preventDefault();
     },
 
@@ -71,8 +74,10 @@ export let dragAndDrop = {
         let draggedElement = document.querySelector('.dragged');
         if (e.currentTarget.classList.contains('card')){
             e.currentTarget.insertAdjacentElement('beforebegin', draggedElement);
+            //draggedElement.dataset.order = e.currentTarget.dataset.order;
         } else if (e.currentTarget.classList.contains('board-column-content') && e.currentTarget.childElementCount === 0){
             e.currentTarget.appendChild(draggedElement);
+            //draggedElement.dataset.order = 0;
         }
         draggedElement.dataset.status = e.currentTarget.dataset.status;
         dataHandler.updateCardStatus(draggedElement.dataset.id, draggedElement.dataset.status);
@@ -91,13 +96,8 @@ export let dragAndDrop = {
         }
     },
 
-    canDropHere: function(e) {
-        return (
-            e.currentTarget.classList.contains('mixed-cards') &&
-            e.dataTransfer.types.includes(`type/dragged-card`)
-        ) || (
-            e.currentTarget.childNodes.length === 0 &&
-            e.dataTransfer.types.includes(`type/dragged-${e.currentTarget.parentElement.dataset.acceptedCards}`)
-        );
+    createGhostCard: function(e) {
+        let draggedElement = document.querySelector('.dragged');
+        e.currentTarget.insertAdjacentElement('beforebegin', draggedElement);
     },
 }
