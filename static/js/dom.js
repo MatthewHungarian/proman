@@ -244,7 +244,7 @@ window.onload = function (){
                     let columnId = columnTitle.dataset.id;
                     let data = {title: `${columnTitle.innerHTML}`, id: columnId};
                     dataHandler._api_post('/rename-column', data);
-                    document.location.reload();
+                    //document.location.reload();
                 } else if (e.keyCode === 27) {
                     document.getElementById("rename-column-input").remove();
                     columnTitle.innerHTML = oldValue;
@@ -269,7 +269,7 @@ window.onload = function (){
                 let columnId = cardTitle.dataset.id;
                 let data = {title: `${cardTitle.innerHTML}`, id: columnId};
                 dataHandler._api_post('/rename-card', data);
-                document.location.reload();
+                //document.location.reload();
             } else if (e.keyCode === 27) {
                 document.getElementById("rename-card-input").remove();
                 cardTitle.innerHTML = oldValue;

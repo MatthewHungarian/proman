@@ -75,12 +75,13 @@ export let dragAndDrop = {
             } else {
                 e.currentTarget.insertAdjacentElement('afterend', draggedElement);
             }
-            dataHandler.updateCardOrder(document.querySelectorAll(".card"));
+            //dataHandler.updateCardOrder(document.querySelectorAll(".card"));
         } else if (e.currentTarget.classList.contains('board-column-content') && e.currentTarget.childElementCount === 0){
             e.currentTarget.appendChild(draggedElement);
         }
         draggedElement.dataset.status = e.currentTarget.dataset.status;
         dataHandler.updateCardStatus(draggedElement.dataset.id, draggedElement.dataset.status);
+        dataHandler.updateCardOrder(document.querySelectorAll(".card"));
         e.preventDefault();
     },
 
