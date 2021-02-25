@@ -33,6 +33,11 @@ input.column-rename {
     margin-bottom: 0px;
 }
 
+input.card-rename {
+    width: 70%;
+    margin-bottom: 0px;
+}
+
 button{
     background: #222;
     color: #fff;
