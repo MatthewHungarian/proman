@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, session, redirect, flash
 from util import json_response
 
 import data_handler
@@ -81,6 +81,19 @@ def rename_column():
     status_id = request.get_json()['id']
     new_name = request.get_json()['title']
     return data_handler.rename_column(status_id, new_name)
+
+
+@app.route('/registration', methods=['GET', 'POST'])
+def registration():
+    error = None
+    if request.method == 'POST':
+        account_data = data_handler.check_user_data(request.form["username"])
+        if not account_data:
+            data_handler.add_new_user(request.form["username"], request.form["password"])
+            return redirect('/')
+        else:
+            error = "Username already taken"
+    return render_template('registration.html', error=error)
 
 
 def main():
