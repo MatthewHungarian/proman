@@ -99,8 +99,8 @@ def rename_card():
 def registration():
     error = None
     if request.method == 'POST':
-        account_data = data_handler.check_user_data(request.form["username"])
-        if not account_data:
+        user_data = data_handler.check_user_data(request.form["username"])
+        if not user_data:
             data_handler.add_new_user(request.form["username"], request.form["password"])
             flash("Successful registration. Log in to continue.")
             return redirect('/login')
@@ -113,18 +113,25 @@ def registration():
 def login():
     error = None
     if request.method == 'POST':
-        account_data = data_handler.check_user_data(request.form["username"])
-        if account_data:
-            correct_password = account_data[0]['hashed_password']
+        user_data = data_handler.check_user_data(request.form["username"])
+        if user_data:
+            correct_password = user_data[0]['hashed_password']
             if util.verify_password(request.form["password"], correct_password):
-                session['username'] = account_data[0]["username"]
-                session['account_id'] = account_data[0]["id"]
+                session['username'] = user_data[0]["username"]
+                session['user_id'] = user_data[0]["id"]
                 return redirect('/')
             else:
                 error = "Pass or username is wrong!"
         else:
             error = "Pass or username is wrong!"
     return render_template('login.html', error=error)
+
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    session.pop('user_id', None)
+    return redirect('/')
 
 
 def main():
