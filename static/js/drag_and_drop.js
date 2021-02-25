@@ -4,14 +4,16 @@ export let dragAndDrop = {
     initDragAndDrop: function() {
         let draggables = document.querySelectorAll(".card");
         let dropZones = document.querySelectorAll(".board-column-content");
-        this.initDraggables(draggables);
         this.initDropZones(dropZones);
+        this.initDraggables(draggables);
     },
 
     initDraggables: function(draggables) {
         for (const draggable of draggables) {
             this.initDraggable(draggable);
+            this.initDropZone(draggable);
         }
+
     },
 
     initDropZones: function(dropZones) {
@@ -67,7 +69,11 @@ export let dragAndDrop = {
 
     dropZoneDropHandler: function(e) {
         let draggedElement = document.querySelector('.dragged');
-        e.currentTarget.appendChild(draggedElement);
+        if (e.currentTarget.classList.contains('card')){
+            e.currentTarget.insertAdjacentElement('beforebegin', draggedElement);
+        } else if (e.currentTarget.classList.contains('board-column-content') && e.currentTarget.childElementCount === 0){
+            e.currentTarget.appendChild(draggedElement);
+        }
         draggedElement.dataset.status = e.currentTarget.dataset.status;
         dataHandler.updateCardStatus(draggedElement.dataset.id, draggedElement.dataset.status);
         e.preventDefault();
