@@ -19,12 +19,12 @@
     </head>
     <body>
         <h1>Registration</h1>
-        <form action="/registration" method="post" enctype=multipart/form-data>
+        <form action="/registration" class="flexbox-container" method="post" enctype=multipart/form-data>
             <label for="username"><strong>Username:</strong></label>
             <input id= "username" name="username" class="input_class" type= "text" required>
-            <label for="password"><strong>Password:</strong></label>
+            <label for="password" class="flexbox-label"><strong>Password:</strong></label>
             <input id="password" name="password" class="input_class" type= "password" required>
-            <button type="submit" value=Upload>Sign up</button>
+            <button type="submit" class="flexbox-btn" value=Upload>Sign up</button>
         </form>
 
     {% if error %}

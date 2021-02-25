@@ -12,12 +12,15 @@ body{
     font-family: sans-serif;
 }
 
+
 h1, .board-title, .board-column-title{
     font-weight: 100;
 }
 
 h1{
     text-align: center;
+    padding-top: 20px;
+    padding-bottom: 30px;
     font-size: 4em;
     letter-spacing: 5px;
     transform: scale(1.2, 1);
@@ -47,9 +50,21 @@ button{
     padding: 4px 10px;
 }
 
-.board-container{
+.board-container, #buttons{
     max-width: 960px;
     margin: 0 auto;
+}
+
+#public-div, #new-column-div {
+    display: inline;
+}
+
+#public-div {
+    margin-left: 20px;
+}
+
+#new-column-div {
+    margin-left: 5px;
 }
 
 section.board{
@@ -199,4 +214,24 @@ section.board{
     width: 100%;
     padding: 10px;
     height: 36px;
+}
+
+.flexbox-label {
+    margin-top: 10px;
+}
+
+.flexbox-btn {
+    margin-top: 15px;
+}
+
+.flexbox-container {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    align-items: center;
+    background-color: #FFF;
+    min-height: 13vh;
+    width: 25vh;
+    min-width: 250px;
+    margin: auto;
 }
