@@ -47,8 +47,9 @@ export let dragAndDrop = {
     },
 
     dropZoneEnterHandler: function(e) {
+        let draggedElement = document.querySelector('.dragged');
         this.classList.add("over-zone");
-        if (e.currentTarget.classList.contains('card')) {
+        if (e.currentTarget.classList.contains('card') && draggedElement.dataset.board === this.dataset.board) {
             dragAndDrop.createGhostCard(e);
         }
         e.preventDefault();
@@ -62,18 +63,18 @@ export let dragAndDrop = {
     },
 
     dropZoneLeaveHandler: function(e) {
-        /*if (e.dataTransfer.types.includes(`type/dragged-card`) &&
-            e.relatedTarget !== null &&
-            e.currentTarget !== e.relatedTarget.closest('.board-column-content')) {*/
-            this.classList.remove("over-zone");
-            this.classList.add("active-zone");
-        //}
+        this.classList.remove("over-zone");
+        this.classList.add("active-zone");
     },
 
     dropZoneDropHandler: function(e) {
         let draggedElement = document.querySelector('.dragged');
         if (e.currentTarget.classList.contains('card')){
-            e.currentTarget.insertAdjacentElement('beforebegin', draggedElement);
+            if (e.currentTarget.nextElementSibling) {
+                e.currentTarget.insertAdjacentElement('beforebegin', draggedElement);
+            } else {
+                e.currentTarget.insertAdjacentElement('afterend', draggedElement);
+            }
             //draggedElement.dataset.order = e.currentTarget.dataset.order;
         } else if (e.currentTarget.classList.contains('board-column-content') && e.currentTarget.childElementCount === 0){
             e.currentTarget.appendChild(draggedElement);
@@ -98,6 +99,11 @@ export let dragAndDrop = {
 
     createGhostCard: function(e) {
         let draggedElement = document.querySelector('.dragged');
-        e.currentTarget.insertAdjacentElement('beforebegin', draggedElement);
+        if (e.currentTarget.nextElementSibling) {
+            e.currentTarget.insertAdjacentElement('beforebegin', draggedElement);
+        } else {
+            e.currentTarget.insertAdjacentElement('afterend', draggedElement);
+        }
     },
+
 }
