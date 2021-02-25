@@ -70,6 +70,11 @@ def update_card_status(card_data):
     return data.update_card_status(card_data['card_id'], card_data['status_id'])
 
 
+def update_card_order(card_data):
+    for card in card_data:
+        data.update_card_order(card['card_id'], card['order_n'])
+        
+        
 def check_user_data(username):
     return data.get_row("users", username, "username")
 

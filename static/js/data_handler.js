@@ -83,5 +83,14 @@ export let dataHandler = {
         let data = {card_id: cardId, status_id: cardStatus};
         this._api_post('/update-card-status', data);
     },
+
+    updateCardOrder: function (cards) {
+        let data = [];
+        for (let card of cards){
+            let order = Array.prototype.indexOf.call(card.parentNode.children, card);
+            data.push({card_id: card.dataset.id, order_n: order});
+        }
+        this._api_post('/update-card-order', data);
+    },
     // here comes more features
 };

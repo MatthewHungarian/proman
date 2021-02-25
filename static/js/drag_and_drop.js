@@ -4,14 +4,16 @@ export let dragAndDrop = {
     initDragAndDrop: function() {
         let draggables = document.querySelectorAll(".card");
         let dropZones = document.querySelectorAll(".board-column-content");
-        this.initDraggables(draggables);
         this.initDropZones(dropZones);
+        this.initDraggables(draggables);
     },
 
     initDraggables: function(draggables) {
         for (const draggable of draggables) {
             this.initDraggable(draggable);
+            this.initDropZone(draggable);
         }
+
     },
 
     initDropZones: function(dropZones) {
@@ -45,7 +47,11 @@ export let dragAndDrop = {
     },
 
     dropZoneEnterHandler: function(e) {
+        let draggedElement = document.querySelector('.dragged');
         this.classList.add("over-zone");
+        if (e.currentTarget.classList.contains('card') && draggedElement.dataset.board === this.dataset.board) {
+            dragAndDrop.createGhostCard(e);
+        }
         e.preventDefault();
     },
 
@@ -57,17 +63,22 @@ export let dragAndDrop = {
     },
 
     dropZoneLeaveHandler: function(e) {
-        /*if (e.dataTransfer.types.includes(`type/dragged-card`) &&
-            e.relatedTarget !== null &&
-            e.currentTarget !== e.relatedTarget.closest('.board-column-content')) {*/
-            this.classList.remove("over-zone");
-            this.classList.add("active-zone");
-        //}
+        this.classList.remove("over-zone");
+        this.classList.add("active-zone");
     },
 
     dropZoneDropHandler: function(e) {
         let draggedElement = document.querySelector('.dragged');
-        e.currentTarget.appendChild(draggedElement);
+        if (e.currentTarget.classList.contains('card')){
+            if (e.currentTarget.nextElementSibling) {
+                e.currentTarget.insertAdjacentElement('beforebegin', draggedElement);
+            } else {
+                e.currentTarget.insertAdjacentElement('afterend', draggedElement);
+            }
+            dataHandler.updateCardOrder(document.querySelectorAll(".card"));
+        } else if (e.currentTarget.classList.contains('board-column-content') && e.currentTarget.childElementCount === 0){
+            e.currentTarget.appendChild(draggedElement);
+        }
         draggedElement.dataset.status = e.currentTarget.dataset.status;
         dataHandler.updateCardStatus(draggedElement.dataset.id, draggedElement.dataset.status);
         e.preventDefault();
@@ -85,13 +96,13 @@ export let dragAndDrop = {
         }
     },
 
-    canDropHere: function(e) {
-        return (
-            e.currentTarget.classList.contains('mixed-cards') &&
-            e.dataTransfer.types.includes(`type/dragged-card`)
-        ) || (
-            e.currentTarget.childNodes.length === 0 &&
-            e.dataTransfer.types.includes(`type/dragged-${e.currentTarget.parentElement.dataset.acceptedCards}`)
-        );
+    createGhostCard: function(e) {
+        let draggedElement = document.querySelector('.dragged');
+        if (e.currentTarget.nextElementSibling) {
+            e.currentTarget.insertAdjacentElement('beforebegin', draggedElement);
+        } else {
+            e.currentTarget.insertAdjacentElement('afterend', draggedElement);
+        }
     },
+
 }
