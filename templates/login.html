@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Registration</title>
+        <title>Login</title>
 
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
@@ -18,8 +18,13 @@
 
     </head>
     <body>
-        <h1>Registration</h1>
-        <form action="/registration" method="post" enctype=multipart/form-data>
+        <h1>Login</h1>
+
+        {% for mesg in get_flashed_messages() %}
+            <p>{{ mesg }}</p>
+        {% endfor %}
+
+        <form action="/login" method="post" enctype=multipart/form-data>
             <label for="username"><strong>Username:</strong></label>
             <input id= "username" name="username" class="input_class" type= "text" required>
             <label for="password"><strong>Password:</strong></label>
