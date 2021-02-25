@@ -2,8 +2,10 @@ from flask import Flask, render_template, url_for, request, session, redirect, f
 from util import json_response
 
 import data_handler
+import util
 
 app = Flask(__name__)
+app.secret_key = b'kn,jhliuZ=(ZUIH,(/%(ds)*)'
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -13,7 +15,7 @@ def index():
     """
     if request.method == "POST":
         title = request.get_json()['title']
-        # user_id = session["user_name"]
+        # username = session["username"]
         user_id = 0
         data_handler.create_board(title, user_id)
     return render_template('index.html')
@@ -90,10 +92,29 @@ def registration():
         account_data = data_handler.check_user_data(request.form["username"])
         if not account_data:
             data_handler.add_new_user(request.form["username"], request.form["password"])
-            return redirect('/')
+            flash("Successful registration. Log in to continue.")
+            return redirect('/login')
         else:
             error = "Username already taken"
     return render_template('registration.html', error=error)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        account_data = data_handler.check_user_data(request.form["username"])
+        if account_data:
+            correct_password = account_data[0]['hashed_password']
+            if util.verify_password(request.form["password"], correct_password):
+                session['username'] = account_data[0]["username"]
+                session['account_id'] = account_data[0]["id"]
+                return redirect('/')
+            else:
+                error = "Pass or username is wrong!"
+        else:
+            error = "Pass or username is wrong!"
+    return render_template('login.html', error=error)
 
 
 def main():
