@@ -1,9 +1,11 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, session, redirect, flash
 from util import json_response
 
 import data_handler
+import util
 
 app = Flask(__name__)
+app.secret_key = b'kn,jhliuZ=(ZUIH,(/%(ds)*)'
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -11,12 +13,14 @@ def index():
     """
     This is a one-pager which shows all the boards and cards
     """
+    if "username" in session:
+        return render_template('index.html', username=session["username"])
     if request.method == "POST":
         title = request.get_json()['title']
-        # user_id = session["user_name"]
+        # username = session["username"]
         user_id = 0
         data_handler.create_board(title, user_id)
-    return render_template('index.html')
+    return render_template('index.html', username=None)
 
 
 @app.route("/get-boards")
@@ -88,6 +92,53 @@ def rename_column():
     status_id = request.get_json()['id']
     new_name = request.get_json()['title']
     return data_handler.rename_column(status_id, new_name)
+
+
+@app.route("/rename-card", methods=['POST'])
+@json_response
+def rename_card():
+    card_id = int(request.get_json()['id'])
+    new_name = request.get_json()['title']
+    return data_handler.rename_card(card_id, new_name)
+
+  
+@app.route('/registration', methods=['GET', 'POST'])
+def registration():
+    error = None
+    if request.method == 'POST':
+        user_data = data_handler.check_user_data(request.form["username"])
+        if not user_data:
+            data_handler.add_new_user(request.form["username"], request.form["password"])
+            flash("Successful registration. Log in to continue.")
+            return redirect('/login')
+        else:
+            error = "Username already taken"
+    return render_template('registration.html', error=error)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        user_data = data_handler.check_user_data(request.form["username"])
+        if user_data:
+            correct_password = user_data[0]['hashed_password']
+            if util.verify_password(request.form["password"], correct_password):
+                session['username'] = user_data[0]["username"]
+                session['user_id'] = user_data[0]["id"]
+                return redirect('/')
+            else:
+                error = "Pass or username is wrong!"
+        else:
+            error = "Pass or username is wrong!"
+    return render_template('login.html', error=error)
+
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    session.pop('user_id', None)
+    return redirect('/')
 
 
 def main():

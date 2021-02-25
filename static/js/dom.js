@@ -53,7 +53,7 @@ export let dom = {
         for(let card of cards){
             outerHtml = `
                 <div class="card" data-board="${card.board_id}" data-status="${card.status_id}" data-id="${card.id}">
-                    <div class="card-title">${card.title}</div>
+                    <div class="card-title" data-id="${card.id}">${card.title}</div>
                 </div>
             `;
 
@@ -227,6 +227,7 @@ export let dom = {
 
 window.onload = function (){
     let columnTitles = document.getElementsByClassName("column-title");
+    let cardTitles = document.getElementsByClassName("card-title");
     for (let columnTitle of columnTitles){
         columnTitle.addEventListener("click", function(){
             if (document.getElementById("rename-column-input") === null) {
@@ -252,4 +253,30 @@ window.onload = function (){
             }
         })
     }
+    for (let cardTitle of cardTitles){
+    cardTitle.addEventListener("click", function(){
+        if (document.getElementById("rename-card-input") === null) {
+        let oldValue = cardTitle.innerHTML;
+        cardTitle.style.display = "none";
+        const outerHtml = `<input type="text" id="rename-card-input" class="card-rename" value="${oldValue}">`;
+        cardTitle.insertAdjacentHTML('beforebegin', outerHtml);
+        document.getElementById("rename-card-input").addEventListener("keyup", function (e) {
+        if(e.keyCode === 13 || e.keyCode === 27)
+            cardTitle.style.display = "inline";
+            if (e.keyCode === 13) {
+                cardTitle.innerHTML = document.getElementById("rename-card-input").value;
+                document.getElementById("rename-card-input").remove();
+                let columnId = cardTitle.dataset.id;
+                let data = {title: `${cardTitle.innerHTML}`, id: columnId};
+                dataHandler._api_post('/rename-card', data);
+                document.location.reload();
+            } else if (e.keyCode === 27) {
+                document.getElementById("rename-card-input").remove();
+                cardTitle.innerHTML = oldValue;
+            }
+
+        });
+        }
+    })
+}
 };

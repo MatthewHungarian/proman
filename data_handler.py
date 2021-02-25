@@ -1,5 +1,6 @@
 import persistence
 import data
+import util
 
 
 def get_card_status(status_id):
@@ -52,6 +53,10 @@ def rename_column(id, new_name):
     return data.update_column(id, new_name)
 
 
+def rename_card(id, new_name):
+    return data.update_card(id, new_name)
+
+
 def create_new_card(card_name, board_id, status_id):
     card_data = {"title": card_name, "board_id": board_id, "status_id": status_id, "order_n": 0}
     return data.add_new_row(card_data, 'cards')
@@ -68,3 +73,12 @@ def update_card_status(card_data):
 def update_card_order(card_data):
     for card in card_data:
         data.update_card_order(card['card_id'], card['order_n'])
+        
+        
+def check_user_data(username):
+    return data.get_row("users", username, "username")
+
+
+def add_new_user(username, password):
+    hashed_password = util.hash_password(password)
+    return data.add_new_row({"username": username, "hashed_password": hashed_password}, "users")
