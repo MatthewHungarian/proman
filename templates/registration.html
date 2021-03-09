@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Registration</title>
+{% extends "index.html" %}
 
-        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
-        <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
-        <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='favicon/favicon-96x96.png') }}">
-        <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+{% block head %}
+    {{ super() }}
+    <title>Registration</title>
+{% endblock head %}
 
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
-        <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    </head>
+{% block body %}
     <body class="login">
         <h1>Registration</h1>
         <form action="/registration" class="flexbox-container" method="post" enctype=multipart/form-data>
@@ -32,4 +21,4 @@
     {% endif %}
 
     </body>
-</html>
+{% endblock body %}

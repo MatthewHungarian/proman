@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+{% block head %}
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
         <title>ProFriend</title>
 
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
@@ -15,36 +17,37 @@
         <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     </head>
-    <body>
+{% endblock head %}
 
+{% block body %}
+    <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                 {%  if username is none %}
-                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('registration') }}">Register</a></li>
-                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('login') }}">Login </a></li>
-                 {% else %}
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('logout') }}">Logout</a></li>
-                     </ul>
-                    <span class="navbar-text" id="user"> Signed in as: {{ username }}</span>
-                {% endif %}
-        </div>
+            <div class="container-fluid">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                     {% if username is none %}
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('registration') }}">Register</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('login') }}">Login </a></li>
+                    </ul>
+                     {% else %}
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('logout') }}">Logout</a></li>
+                    </ul>
+                        <span class="navbar-text" id="user"> Signed in as: {{ username }}</span>
+                     {% endif %}
+            </div>
         </nav>
 
         <h1>ProFriend</h1>
 
-
         <div id="buttons">
-             <div id='public-div'>
+            <div id='public-div'>
                 <button id='public-button'>CREATE NEW BOARD</button>
-             </div>
+            </div>
             <div id="new-column-div">
                 <button type="button" id="add-new-column" class="">ADD NEW COLUMN</button>
             </div>
         </div>
         <div id="boards"></div>
-
     </body>
+{% endblock body %}
 </html>
