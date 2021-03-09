@@ -46,25 +46,8 @@ def update_row(cursor: RealDictCursor, target_table: str, col: str, new_data: st
 
 
 @database_common.connection_handler
-def update_board(cursor: RealDictCursor, board_id: int, new_title: str):
-    cursor.execute(f"UPDATE boards SET title = '{new_title}' WHERE id = {board_id}")
-
-
-@database_common.connection_handler
-def update_card_status(cursor: RealDictCursor, card_id: int, status_id: int):
-    cursor.execute(f"UPDATE cards SET status_id = '{status_id}' WHERE id = {card_id}")
-
-
-@database_common.connection_handler
-def update_card_order(cursor: RealDictCursor, card_id: int, order_id: int):
-    cursor.execute(f"UPDATE cards SET order_n = '{order_id}' WHERE id = {card_id}")
-
-    
-@database_common.connection_handler
-def update_column(cursor: RealDictCursor, id: int, new_title: str):
-    cursor.execute(f"UPDATE statuses SET title = '{new_title}' WHERE id = {id}")
-
-
-@database_common.connection_handler
-def update_card(cursor: RealDictCursor, id: int, new_title: str):
-    cursor.execute(f"UPDATE cards SET title = '{new_title}' WHERE id = {id}")
+def update_row(cursor: RealDictCursor, target_table: str, col: str, new_data: str, target_id: int):
+    query = sql.SQL('UPDATE {} SET {} = %s WHERE id = %s').format(
+        sql.Identifier(target_table),
+        sql.Identifier(col))
+    cursor.execute(query, [new_data, target_id])

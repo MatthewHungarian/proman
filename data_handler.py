@@ -20,15 +20,15 @@ def create_board(title, user_id):
 
 
 def rename_board(board_id, new_name):
-    return data.update_board(board_id, new_name)
+    return data.update_row('boards', 'title', new_name, board_id)
 
 
 def rename_column(id, new_name):
-    return data.update_column(id, new_name)
+    return data.update_row('statuses', 'title', new_name, id)
 
 
 def rename_card(id, new_name):
-    return data.update_card(id, new_name)
+    return data.update_row('cards', 'title', new_name, id)
 
 
 def create_new_card(card_name, board_id, status_id):
@@ -41,12 +41,12 @@ def add_new_status(new_status):
 
 
 def update_card_status(card_data):
-    return data.update_card_status(card_data['card_id'], card_data['status_id'])
+    return data.update_row('cards', 'status_id', card_data['status_id'], card_data['card_id'])
 
 
 def update_card_order(card_data):
     for card in card_data:
-        data.update_card_order(card['card_id'], card['order_n'])
+        data.update_row('cards', 'order_n', card['order_n'], card['card_id'])
         
         
 def check_user_data(username):
