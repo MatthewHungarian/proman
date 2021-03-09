@@ -38,6 +38,14 @@ def get_data(cursor: RealDictCursor, table: str):
 
 
 @database_common.connection_handler
+def update_row(cursor: RealDictCursor, target_table: str, col: str, new_data: str, target_id: int):
+    query = sql.SQL('UPDATE {} SET {} = %s WHERE id = %s').format(
+        sql.Identifier(target_table),
+        sql.Identifier(col))
+    cursor.execute(query, [new_data, target_id])
+
+
+@database_common.connection_handler
 def update_board(cursor: RealDictCursor, board_id: int, new_title: str):
     cursor.execute(f"UPDATE boards SET title = '{new_title}' WHERE id = {board_id}")
 

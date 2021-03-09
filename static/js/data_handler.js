@@ -76,7 +76,6 @@ export let dataHandler = {
     createNewStatus: function (newStatus) {
         let data = {title: newStatus};
         this._api_post('/add-column', data);
-        document.location.reload();
     },
 
     updateCardStatus: function (cardId, cardStatus) {
@@ -91,6 +90,5 @@ export let dataHandler = {
             data.push({card_id: card.dataset.id, order_n: order});
         }
         this._api_post('/update-card-order', data);
-    },
-    // here comes more features
+    }
 };

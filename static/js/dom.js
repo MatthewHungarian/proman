@@ -7,7 +7,6 @@ export let dom = {
         // This function should run once, when the page is loaded.
     },
     loadBoards: function () {
-        // retrieves boards and makes showBoards called
         dataHandler.getBoards(function(boards){
             dom.showBoards(boards);
             dom.loadStatuses(boards);
@@ -17,8 +16,6 @@ export let dom = {
         });
     },
     showBoards: function (boards) {
-        // shows boards appending them to #boards div
-        // it adds necessary event listeners also
 
         let boardList = '';
 
@@ -40,14 +37,11 @@ export let dom = {
         boardsContainer.insertAdjacentHTML("beforeend", outerHtml);
     },
     loadCards: function (boardId) {
-        // retrieves cards and makes showCards called
         dataHandler.getCardsByBoardId(boardId, function(cards){
             dom.showCards(cards);
         });
     },
     showCards: function (cards) {
-        // shows the cards of a board
-        // it adds necessary event listeners also
         let outerHtml = '';
 
         for(let card of cards){
@@ -64,7 +58,6 @@ export let dom = {
 
     },
     loadStatuses: function (boards) {
-        // retrieves cards and makes showCards called
         dataHandler.getStatuses( function(statuses){
             for (let board of boards){
                 dom.showStatuses(statuses, board["id"]);
@@ -75,8 +68,6 @@ export let dom = {
         });
     },
     showStatuses: function (statuses, board) {
-        // shows boards appending them to #boards div
-        // it adds necessary event listeners also
 
         let statusList = '';
 
@@ -95,10 +86,6 @@ export let dom = {
             </div>
         `;
 
-        /*let statusesContainer = document.querySelectorAll('.board-header');
-        statusesContainer.forEach(status => {
-            status.insertAdjacentHTML("afterend", outerHtml);
-        });*/
         let statusesContainer = document.getElementById(`header${board}`);
         statusesContainer.insertAdjacentHTML("afterend", outerHtml);
 
