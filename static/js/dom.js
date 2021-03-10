@@ -4,15 +4,15 @@ import {dragAndDrop} from "./drag_and_drop.js";
 
 export let dom = {
     init: function () {
-        // This function should run once, when the page is loaded.
+        dom.loadBoards();
     },
     loadBoards: function () {
         dataHandler.getBoards(function(boards){
             dom.showBoards(boards);
-            dom.loadStatuses(boards);
+            dom.createNewBoardField ();
             dom.renameBoard();
-            dom.createCard();
             dom.hideNshowBoard();
+            dom.loadStatuses(boards);
         });
     },
     showBoards: function (boards) {
@@ -67,6 +67,7 @@ export let dom = {
             }
             dom.addStatus();
             dom.renameStatus();
+            dom.createCard();
         });
     },
     showStatuses: function (statuses, board) {
