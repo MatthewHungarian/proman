@@ -5,8 +5,6 @@ import {dataHandler} from "./data_handler.js";
 function init() {
     // init data
     dom.init();
-    dom.loadBoards();
-    dom.createNewBoardField ();
 }
 
 init();

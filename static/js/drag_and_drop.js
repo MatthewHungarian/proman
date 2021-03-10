@@ -50,7 +50,7 @@ export let dragAndDrop = {
         let draggedElement = document.querySelector('.dragged');
         this.classList.add("over-zone");
         if (e.currentTarget.classList.contains('card') && draggedElement.dataset.board === this.dataset.board) {
-            dragAndDrop.createGhostCard(e);
+            dragAndDrop.dropCard(e);
         }
         e.preventDefault();
     },
@@ -69,19 +69,12 @@ export let dragAndDrop = {
 
     dropZoneDropHandler: function(e) {
         let draggedElement = document.querySelector('.dragged');
-        if (e.currentTarget.classList.contains('card')){
-            if (e.currentTarget.nextElementSibling) {
-                e.currentTarget.insertAdjacentElement('beforebegin', draggedElement);
-            } else {
-                e.currentTarget.insertAdjacentElement('afterend', draggedElement);
-            }
-            //dataHandler.updateCardOrder(document.querySelectorAll(".card"));
-        } else if (e.currentTarget.classList.contains('board-column-content') && e.currentTarget.childElementCount === 0){
+        if (e.currentTarget.classList.contains('board-column-content') && e.currentTarget.childElementCount === 0){
             e.currentTarget.appendChild(draggedElement);
+            draggedElement.dataset.status = e.currentTarget.dataset.status;
+            dataHandler.updateCardStatus(draggedElement.dataset.id, draggedElement.dataset.status);
+            dataHandler.updateCardOrder(document.querySelectorAll(".card"));
         }
-        draggedElement.dataset.status = e.currentTarget.dataset.status;
-        dataHandler.updateCardStatus(draggedElement.dataset.id, draggedElement.dataset.status);
-        dataHandler.updateCardOrder(document.querySelectorAll(".card"));
         e.preventDefault();
     },
 
@@ -97,13 +90,16 @@ export let dragAndDrop = {
         }
     },
 
-    createGhostCard: function(e) {
+    dropCard: function(e) {
         let draggedElement = document.querySelector('.dragged');
         if (e.currentTarget.nextElementSibling) {
             e.currentTarget.insertAdjacentElement('beforebegin', draggedElement);
         } else {
             e.currentTarget.insertAdjacentElement('afterend', draggedElement);
         }
+        draggedElement.dataset.status = e.currentTarget.dataset.status;
+        dataHandler.updateCardStatus(draggedElement.dataset.id, draggedElement.dataset.status);
+        dataHandler.updateCardOrder(document.querySelectorAll(".card"));
     },
 
 }

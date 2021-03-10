@@ -43,11 +43,3 @@ def update_row(cursor: RealDictCursor, target_table: str, col: str, new_data: st
         sql.Identifier(target_table),
         sql.Identifier(col))
     cursor.execute(query, [new_data, target_id])
-
-
-@database_common.connection_handler
-def update_row(cursor: RealDictCursor, target_table: str, col: str, new_data: str, target_id: int):
-    query = sql.SQL('UPDATE {} SET {} = %s WHERE id = %s').format(
-        sql.Identifier(target_table),
-        sql.Identifier(col))
-    cursor.execute(query, [new_data, target_id])
