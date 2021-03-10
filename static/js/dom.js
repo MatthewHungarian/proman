@@ -20,11 +20,17 @@ export let dom = {
         let boardList = '';
 
         for(let board of boards){
-            boardList += `
-                <section class="board" id="board${board.id}">
-                <div class="board-header" id="header${board.id}"><span class="board-title" data-id="${board.id}">${board.title}</span></div>
-                </section>
-            `;
+            let user = 0;
+            if(document.getElementById('private-button')){
+                user = Number(document.getElementById('private-button').dataset.user);
+            }
+            if (board.user_id === user || board.user_id === 0) {
+                boardList += `
+                    <section class="board" id="board${board.id}">
+                    <div class="board-header" id="header${board.id}"><span class="board-title" data-id="${board.id}">${board.title}</span></div>
+                    </section>
+                `;
+            }
         }
 
         const outerHtml = `
@@ -62,9 +68,15 @@ export let dom = {
     },
     loadStatuses: function (boards) {
         dataHandler.getStatuses( function(statuses){
-            for (let board of boards){
-                dom.showStatuses(statuses, board["id"]);
-                dom.loadCards(board["id"]);
+            for (let board of boards) {
+                let user = 0;
+                if (document.getElementById('private-button')) {
+                    user = Number(document.getElementById('private-button').dataset.user);
+                }
+                if (board.user_id === user || board.user_id === 0) {
+                    dom.showStatuses(statuses, board["id"]);
+                    dom.loadCards(board["id"]);
+                }
             }
             dom.addStatus();
             dom.renameStatus();
