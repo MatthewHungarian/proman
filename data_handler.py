@@ -64,3 +64,7 @@ def delete_card(card_id):
 
 def update_archive_status(card_data):
     return data.update_row('cards', 'is_archived', card_data['is_archived'], card_data['card_id'])
+
+
+def update_board_archive_status(board_data):
+    return data.update_row('boards', 'has_archive', board_data['has_archive'], board_data['board_id'])

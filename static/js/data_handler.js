@@ -95,5 +95,10 @@ export let dataHandler = {
     updateArchiveStatus: function (cardId) {
         let data = {card_id: cardId, is_archived: true}
         this._api_post('/archive-card', data)
+    },
+
+    updateBoardArchiveStatus: function (boardId) {
+        let data = {board_id: boardId, has_archive: true}
+        this._api_post('/update-board-archive-status', data)
     }
 };

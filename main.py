@@ -114,7 +114,14 @@ def archive_card():
     data = request.get_json()
     return data_handler.update_archive_status(data)
 
-  
+
+@app.route('/update-board-archive-status', methods=['POST'])
+@json_response
+def update_board_archive_status():
+    data = request.get_json()
+    return data_handler.update_board_archive_status(data)
+
+
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
     error = None

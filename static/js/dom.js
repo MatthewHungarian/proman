@@ -307,7 +307,10 @@ export let dom = {
                 let card = event.target.closest('.card');
                 let cardId = parseInt(card.dataset.id);
                 dataHandler.updateArchiveStatus(cardId);
+                let boardId = parseInt(card.dataset.board);
                 card.remove();
+                dataHandler.updateBoardArchiveStatus(boardId)
+                document.location.reload();
             })
         }
     }
