@@ -79,7 +79,10 @@ export let dom = {
         for(let status of statuses){
             statusList += `
                 <div class="board-column">
-                    <div class="board-column-title"><span class="column-title" data-id="${status.id}">${status.title}</span></div>
+                    <div class="container">
+                        <div class="board-column-title"><span class="column-title" data-id="${status.id}">${status.title}</span></div>
+                        <div class="column-remove"><i class="fas fa-trash-alt"></i></div>
+                    </div>
                     <div class="board-column-content status${status.id}" data-board="${board}" data-status="${status.id}"></div>
                 </div>
             `;
