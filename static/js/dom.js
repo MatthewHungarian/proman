@@ -39,6 +39,8 @@ export let dom = {
     loadCards: function (boardId) {
         dataHandler.getCardsByBoardId(boardId, function(cards){
             dom.showCards(cards);
+            dom.renameCard();
+            dragAndDrop.initDragAndDrop();
         });
     },
     showCards: function (cards) {
@@ -63,8 +65,8 @@ export let dom = {
                 dom.showStatuses(statuses, board["id"]);
                 dom.loadCards(board["id"]);
             }
-            setTimeout(() => {dragAndDrop.initDragAndDrop()}, 300);
             dom.addStatus();
+            dom.renameStatus();
         });
     },
     showStatuses: function (statuses, board) {
@@ -122,7 +124,6 @@ export let dom = {
         }
     });
     },
-
     renameBoard: function () {
         let boardTitles = document.getElementsByClassName("board-title");
         for (let boardTitle of boardTitles){
@@ -146,8 +147,6 @@ export let dom = {
             });
         }
     },
-
-
     createCard: function () {
         let boardTitles = document.getElementsByClassName("board-title");
         for (let boardTitle of boardTitles) {
@@ -169,7 +168,6 @@ export let dom = {
             });
         }
     },
-      
     addStatus: function () {
         const newStatusButton = document.getElementById("add-new-column");
         newStatusButton.addEventListener("click", function (event) {
@@ -193,7 +191,6 @@ export let dom = {
             }
         });
     },
-  
     hideNshowBoard: function () {
         const boardHeaders = document.getElementsByClassName("board-header");
         for (let boardHeader of boardHeaders){
@@ -210,60 +207,60 @@ export let dom = {
             })
         }
     },
-};
-
-window.onload = function (){
-    let columnTitles = document.getElementsByClassName("column-title");
-    let cardTitles = document.getElementsByClassName("card-title");
-    for (let columnTitle of columnTitles){
-        columnTitle.addEventListener("click", function(){
-            if (document.getElementById("rename-column-input") === null) {
-            let oldValue = columnTitle.innerHTML;
-            columnTitle.style.display = "none";
-            const outerHtml = `<input type="text" id="rename-column-input" class="column-rename" value="${oldValue}">`;
-            columnTitle.insertAdjacentHTML('beforebegin', outerHtml);
-            document.getElementById("rename-column-input").addEventListener("keyup", function (e) {
-            if(e.keyCode === 13 || e.keyCode === 27)
-                columnTitle.style.display = "inline";
-                if (e.keyCode === 13) {
-                    columnTitle.innerHTML = document.getElementById("rename-column-input").value;
-                    document.getElementById("rename-column-input").remove();
-                    let columnId = columnTitle.dataset.id;
-                    let data = {title: `${columnTitle.innerHTML}`, id: columnId};
-                    dataHandler._api_post('/rename-column', data);
-                    //document.location.reload();
-                } else if (e.keyCode === 27) {
-                    document.getElementById("rename-column-input").remove();
-                    columnTitle.innerHTML = oldValue;
+    renameStatus: function (){
+        let columnTitles = document.getElementsByClassName("column-title");
+        for (let columnTitle of columnTitles){
+            columnTitle.addEventListener("click", function(){
+                if (document.getElementById("rename-column-input") === null) {
+                    let oldValue = columnTitle.innerHTML;
+                    columnTitle.style.display = "none";
+                    const outerHtml = `<input type="text" id="rename-column-input" class="column-rename" value="${oldValue}">`;
+                    columnTitle.insertAdjacentHTML('beforebegin', outerHtml);
+                    document.getElementById("rename-column-input").addEventListener("keyup", function (e) {
+                        if(e.keyCode === 13 || e.keyCode === 27)
+                            columnTitle.style.display = "inline";
+                        if (e.keyCode === 13) {
+                            columnTitle.innerHTML = document.getElementById("rename-column-input").value;
+                            document.getElementById("rename-column-input").remove();
+                            let columnId = columnTitle.dataset.id;
+                            let data = {title: `${columnTitle.innerHTML}`, id: columnId};
+                            dataHandler._api_post('/rename-column', data);
+                        } else if (e.keyCode === 27) {
+                            document.getElementById("rename-column-input").remove();
+                            columnTitle.innerHTML = oldValue;
+                        }
+                    });
                 }
-            });
-            }
-        })
-    }
-    for (let cardTitle of cardTitles){
-    cardTitle.addEventListener("click", function(){
-        if (document.getElementById("rename-card-input") === null) {
-        let oldValue = cardTitle.innerHTML;
-        cardTitle.style.display = "none";
-        const outerHtml = `<input type="text" id="rename-card-input" class="card-rename" value="${oldValue}">`;
-        cardTitle.insertAdjacentHTML('beforebegin', outerHtml);
-        document.getElementById("rename-card-input").addEventListener("keyup", function (e) {
-        if(e.keyCode === 13 || e.keyCode === 27)
-            cardTitle.style.display = "inline";
-            if (e.keyCode === 13) {
-                cardTitle.innerHTML = document.getElementById("rename-card-input").value;
-                document.getElementById("rename-card-input").remove();
-                let columnId = cardTitle.dataset.id;
-                let data = {title: `${cardTitle.innerHTML}`, id: columnId};
-                dataHandler._api_post('/rename-card', data);
-                //document.location.reload();
-            } else if (e.keyCode === 27) {
-                document.getElementById("rename-card-input").remove();
-                cardTitle.innerHTML = oldValue;
-            }
-
-        });
+            })
         }
-    })
-}
+    },
+    renameCard: function (){
+        let cardTitles = document.getElementsByClassName("card-title");
+        for (let cardTitle of cardTitles){
+            cardTitle.addEventListener("click", function(){
+                if (document.getElementById("rename-card-input") === null) {
+                    let oldValue = cardTitle.innerHTML;
+                    cardTitle.style.display = "none";
+                    const outerHtml = `<input type="text" id="rename-card-input" class="card-rename" value="${oldValue}">`;
+                    cardTitle.insertAdjacentHTML('beforebegin', outerHtml);
+                    document.getElementById("rename-card-input").addEventListener("keyup", function (e) {
+                        if(e.keyCode === 13 || e.keyCode === 27)
+                            cardTitle.style.display = "inline";
+                        if (e.keyCode === 13) {
+                            cardTitle.innerHTML = document.getElementById("rename-card-input").value;
+                            document.getElementById("rename-card-input").remove();
+                            let columnId = cardTitle.dataset.id;
+                            let data = {title: `${cardTitle.innerHTML}`, id: columnId};
+                            dataHandler._api_post('/rename-card', data);
+                        } else if (e.keyCode === 27) {
+                            document.getElementById("rename-card-input").remove();
+                            cardTitle.innerHTML = oldValue;
+                        }
+
+                    });
+                }
+            })
+        }
+    },
 };
+
