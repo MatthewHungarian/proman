@@ -22,8 +22,9 @@ def index():
 @app.route("/create-board", methods=['POST'])
 @json_response
 def create_board():
+    print(request.get_json())
     title = request.get_json()['title']
-    user_id = 0
+    user_id = request.get_json()['user_id']
     return data_handler.create_board(title, user_id)
 
 

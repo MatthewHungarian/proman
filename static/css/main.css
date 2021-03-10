@@ -59,12 +59,16 @@ button{
     margin: 0 auto;
 }
 
-#public-div, #new-column-div {
+#public-div, #private-div, #new-column-div {
     display: inline;
 }
 
 #public-div {
     margin-left: 20px;
+}
+
+#private-div {
+    margin-left: 5px;
 }
 
 #new-column-div {
