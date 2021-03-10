@@ -96,35 +96,34 @@ export let dom = {
     },
     createNewBoardField: function () {
         document.getElementById("public-button").addEventListener("click", function () {
-        if (document.getElementById("public-input")) {
-            alert("Please fill in the form to create a new board")
-        } else {
-            let publicDiv = document.getElementById("public-div");
-            let elementNames = ["newPublicInput", "newPublicSave"]
-            let tags = ["input", "button"]
-            let names = ["title", "button"]
-            let ids = ["public-input","public-save"]
-            let innerHTMLS = ["<input></input>","<button>SAVE BOARD</button>"]
-            let createdElements = []
-            for (let i = 0; i < elementNames.length; i++) {
-                createdElements[elementNames[i]] = document.createElement(tags[i]);
-                (createdElements[elementNames[i]]).innerHTML = innerHTMLS[i];
-                (createdElements[elementNames[i]]).name = names[i];
-                (createdElements[elementNames[i]]).id = ids[i];
-                publicDiv.appendChild((createdElements[elementNames[i]]))
-            }
-                document.getElementById("public-save").addEventListener("click",
-                    function () {
-                        if (document.getElementById("public-input").value === "") {
-                            alert("Please don't leave this field empty");
-                        }else {
-                            let title = {title: `${document.getElementById("public-input").value}`}
-                            dataHandler._api_post('/', title)
-                            dom.reloadEverything();
-                        }
+            if (document.getElementById("public-input")) {
+                alert("Please fill in the form to create a new board")
+            } else {
+                let publicDiv = document.getElementById("public-div");
+                let elementNames = ["newPublicInput", "newPublicSave"]
+                let tags = ["input", "button"]
+                let names = ["title", "button"]
+                let ids = ["public-input","public-save"]
+                let innerHTMLS = ["<input></input>","<button>SAVE BOARD</button>"]
+                let createdElements = []
+                for (let i = 0; i < elementNames.length; i++) {
+                    createdElements[elementNames[i]] = document.createElement(tags[i]);
+                    (createdElements[elementNames[i]]).innerHTML = innerHTMLS[i];
+                    (createdElements[elementNames[i]]).name = names[i];
+                    (createdElements[elementNames[i]]).id = ids[i];
+                    publicDiv.appendChild((createdElements[elementNames[i]]))
+                }
+                document.getElementById("public-save").addEventListener("click", function () {
+                    if (document.getElementById("public-input").value === "") {
+                        alert("Please don't leave this field empty");
+                    }else {
+                        let title = {title: `${document.getElementById("public-input").value}`}
+                        dataHandler._api_post('/', title)
+                        dom.reloadEverything();
+                    }
                 });
-        }
-    });
+            }
+        });
     },
     renameBoard: function () {
         let boardTitles = document.getElementsByClassName("board-title");

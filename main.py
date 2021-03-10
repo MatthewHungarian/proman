@@ -14,13 +14,17 @@ def index():
     This is a one-pager which shows all the boards and cards
     """
     if "username" in session:
-        return render_template('index.html', username=session["username"])
-    if request.method == "POST":
-        title = request.get_json()['title']
-        # username = session["username"]
-        user_id = 0
-        data_handler.create_board(title, user_id)
-    return render_template('index.html', username=None)
+        return render_template('index.html', username=session["username"], user_id=session['user_id'])
+    else:
+        return render_template('index.html', username=None)
+
+
+@app.route("/create-board", methods=['POST'])
+@json_response
+def create_board():
+    title = request.get_json()['title']
+    user_id = 0
+    return data_handler.create_board(title, user_id)
 
 
 @app.route("/get-boards")
