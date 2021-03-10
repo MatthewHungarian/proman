@@ -107,6 +107,12 @@ def rename_card():
 def delete_card(card_id):
     return data_handler.delete_card(card_id)
 
+
+@app.route('/delete-column/<int:column_id>', methods=['DELETE'])
+@json_response
+def delete_column(column_id):
+    return data_handler.delete_column(column_id)
+
   
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():

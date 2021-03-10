@@ -252,3 +252,16 @@ section.board{
 .flash-message.error {
     color: red;
 }
+
+.column-remove {
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.board-column-title {
+    padding-right: 5px;
+}
