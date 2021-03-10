@@ -17,7 +17,8 @@ DROP TABLE IF EXISTS public.boards;
 CREATE TABLE boards (
     id serial NOT NULL,
     title varchar,
-    user_id integer
+    user_id integer,
+    has_archive boolean
 );
 
 
@@ -65,8 +66,8 @@ ALTER TABLE ONLY cards
 INSERT INTO users VALUES (0, 'Anonymous', 'password');
 SELECT pg_catalog.setval('users_id_seq', 1, true);
 
-INSERT INTO boards VALUES (1, 'PA to-do', 0);
-INSERT INTO boards VALUES (2, 'Zen to-do', 0);
+INSERT INTO boards VALUES (1, 'PA to-do', 0, false);
+INSERT INTO boards VALUES (2, 'Zen to-do', 0, true);
 SELECT pg_catalog.setval('boards_id_seq', 3, true);
 
 INSERT INTO statuses VALUES (0, 'new');

@@ -20,11 +20,20 @@ export let dom = {
         let boardList = '';
 
         for(let board of boards){
-            boardList += `
-                <section class="board" id="board${board.id}">
-                <div class="board-header" id="header${board.id}"><span class="board-title" data-id="${board.id}">${board.title}</span></div>
-                </section>
-            `;
+            if (!board['has_archive']) {
+                boardList += `
+                    <section class="board" id="board${board.id}">
+                    <div class="board-header" id="header${board.id}"><span class="board-title" data-id="${board.id}">${board.title}</span></div>
+                    </section>
+                `;
+            } else {
+                boardList += `
+                    <section class="board" id="board${board.id}">
+                    <div class="board-header" id="header${board.id}"><span class="board-title" data-id="${board.id}">${board.title}</span>
+                    <button class="show-acrhive" data-board="${board.id}">Archived Cards</button></div>
+                    </section>
+                `;
+            }
         }
 
         const outerHtml = `
