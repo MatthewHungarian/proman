@@ -313,6 +313,14 @@ export let dom = {
                 document.location.reload();
             })
         }
+    },
+    displayArchive: function (){
+        let displayArchiveButtons = document.getElementsByClassName('show-archive');
+        for (let displayArchiveButton of displayArchiveButtons) {
+            displayArchiveButton.addEventListener('click', function(event) {
+                console.log(event.target)
+            })
+        }
     }
 };
 

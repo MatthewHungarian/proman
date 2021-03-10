@@ -67,7 +67,7 @@ INSERT INTO users VALUES (0, 'Anonymous', 'password');
 SELECT pg_catalog.setval('users_id_seq', 1, true);
 
 INSERT INTO boards VALUES (1, 'PA to-do', 0, false);
-INSERT INTO boards VALUES (2, 'Zen to-do', 0, true);
+INSERT INTO boards VALUES (2, 'Zen to-do', 0, false);
 SELECT pg_catalog.setval('boards_id_seq', 3, true);
 
 INSERT INTO statuses VALUES (0, 'new');
