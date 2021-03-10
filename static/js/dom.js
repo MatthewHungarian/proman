@@ -119,7 +119,7 @@ export let dom = {
                         }else {
                             let title = {title: `${document.getElementById("public-input").value}`}
                             dataHandler._api_post('/', title)
-                            document.location.reload();
+                            dom.reloadEverything();
                         }
                 });
         }
@@ -165,6 +165,7 @@ export let dom = {
                     let boardId = addCardButton.dataset.id;
                     document.getElementById("card-input").remove();
                     dataHandler.createNewCard(cardId, boardId, 0);
+                    dom.reloadEverything();
                 }
             });
         }
@@ -187,6 +188,7 @@ export let dom = {
                         document.getElementById("new-status-input").remove();
                         document.getElementById("save-button").remove();
                         dataHandler.createNewStatus(newStatus);
+                        dom.reloadEverything();
                     }
                 });
             }
@@ -262,6 +264,14 @@ export let dom = {
                 }
             })
         }
+    },
+    reloadEverything: function (){
+        dom.removeElements();
+        dom.init();
+    },
+    removeElements: function (){
+        let boardDiv = document.getElementById('boards');
+        boardDiv.innerHTML = '';
     },
 };
 
