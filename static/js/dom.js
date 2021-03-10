@@ -50,7 +50,8 @@ export let dom = {
         for(let card of cards){
             outerHtml = `
                 <div class="card" data-board="${card.board_id}" data-status="${card.status_id}" data-id="${card.id}">
-                    <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                    <div class="card-remove"><i class="fas fa-trash-alt" title="Delete"></i></div>
+                    <div class="card-archive"><i class="fas fa-file-archive" title="Archive"></i></div>
                     <div class="card-title" data-id="${card.id}">${card.title}</div>
                 </div>
             `;
