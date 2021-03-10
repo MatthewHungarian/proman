@@ -56,3 +56,7 @@ def check_user_data(username):
 def add_new_user(username, password):
     hashed_password = util.hash_password(password)
     return data.add_new_row({"username": username, "hashed_password": hashed_password}, "users")
+
+
+def delete_card(card_id):
+    return data.delete_row('cards', card_id)

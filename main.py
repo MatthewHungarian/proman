@@ -101,6 +101,12 @@ def rename_card():
     new_name = request.get_json()['title']
     return data_handler.rename_card(card_id, new_name)
 
+
+@app.route('/delete-card/<int:card_id>', methods=['DELETE'])
+@json_response
+def delete_card(card_id):
+    return data_handler.delete_card(card_id)
+
   
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
