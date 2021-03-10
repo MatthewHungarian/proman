@@ -41,6 +41,7 @@ export let dom = {
             dom.showCards(cards);
             dom.renameCard();
             dragAndDrop.initDragAndDrop();
+            dom.deleteCard();
         });
     },
     showCards: function (cards) {
@@ -274,5 +275,16 @@ export let dom = {
         let boardDiv = document.getElementById('boards');
         boardDiv.innerHTML = '';
     },
+    deleteCard: function (){
+        let deleteCardIcons = document.getElementsByClassName("card-remove");
+        for (let deleteCardIcon of deleteCardIcons) {
+            deleteCardIcon.addEventListener('click', function(event) {
+                let card = event.target.closest('.card');
+                let cardId = parseInt(card.dataset.id);
+                dataHandler._api_delete(`/delete-card/${cardId}`)
+                card.remove();
+            })
+        }
+    }
 };
 
