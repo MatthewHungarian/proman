@@ -34,7 +34,8 @@ CREATE TABLE cards (
     title varchar,
     board_id integer,
     status_id integer,
-    order_n integer
+    order_n integer,
+    is_archived boolean
 );
 
 
@@ -74,31 +75,31 @@ INSERT INTO statuses VALUES (2, 'testing');
 INSERT INTO statuses VALUES (3, 'done');
 SELECT pg_catalog.setval('statuses_id_seq', 3, true);
 
-INSERT INTO cards VALUES (0, 'WEB PA practice exercises!!!', 1, 0, 0);
-INSERT INTO cards VALUES (1, 'Book a consultation', 1, 0, 0);
-INSERT INTO cards VALUES (2, 'Practice on Codewars', 1, 1, 0);
+INSERT INTO cards VALUES (0, 'WEB PA practice exercises!!!', 1, 0, 0, false);
+INSERT INTO cards VALUES (1, 'Book a consultation', 1, 0, 0, false);
+INSERT INTO cards VALUES (2, 'Practice on Codewars', 1, 1, 0, false);
 
-INSERT INTO cards VALUES (3, 'Pair programming', 1, 2, 3);
-INSERT INTO cards VALUES (4, 'Flexbox Froggy', 1, 2, 0);
-INSERT INTO cards VALUES (5, 'Finish SI exercises', 1, 2, 4);
-INSERT INTO cards VALUES (6, 'Check fetch()', 1, 2, 2);
-INSERT INTO cards VALUES (7, 'Finish workbook', 1, 2, 1);
+INSERT INTO cards VALUES (3, 'Pair programming', 1, 2, 3, false);
+INSERT INTO cards VALUES (4, 'Flexbox Froggy', 1, 2, 0, false);
+INSERT INTO cards VALUES (5, 'Finish SI exercises', 1, 2, 4, false);
+INSERT INTO cards VALUES (6, 'Check fetch()', 1, 2, 2, false);
+INSERT INTO cards VALUES (7, 'Finish workbook', 1, 2, 1, false);
 
-INSERT INTO cards VALUES (8, 'Practice with team', 1, 3, 0);
-INSERT INTO cards VALUES (9, 'Ask question on Discord', 1, 3, 0);
-INSERT INTO cards VALUES (10, 'API / AJAX', 1, 3, 0);
-INSERT INTO cards VALUES (11, 'Read Journey pages', 1, 3, 0);
-INSERT INTO cards VALUES (12, 'Check milestone description', 1, 3, 0);
-INSERT INTO cards VALUES (13, 'SQL practice', 1, 3, 0);
+INSERT INTO cards VALUES (8, 'Practice with team', 1, 3, 0, false);
+INSERT INTO cards VALUES (9, 'Ask question on Discord', 1, 3, 0, false);
+INSERT INTO cards VALUES (10, 'API / AJAX', 1, 3, 0, false);
+INSERT INTO cards VALUES (11, 'Read Journey pages', 1, 3, 0, false);
+INSERT INTO cards VALUES (12, 'Check milestone description', 1, 3, 0, false);
+INSERT INTO cards VALUES (13, 'SQL practice', 1, 3, 0, false);
 
-INSERT INTO cards VALUES (14, 'Stay calm', 2, 0, 0);
-INSERT INTO cards VALUES (15, 'Sleep enough', 2, 0, 0);
-INSERT INTO cards VALUES (16, 'Talk to friends', 2, 0, 0);
+INSERT INTO cards VALUES (14, 'Stay calm', 2, 0, 0, false);
+INSERT INTO cards VALUES (15, 'Sleep enough', 2, 0, 0, false);
+INSERT INTO cards VALUES (16, 'Talk to friends', 2, 0, 0, false);
 
-INSERT INTO cards VALUES (19, 'Meditate', 2, 2, 0);
-INSERT INTO cards VALUES (20, 'Do yoga', 2, 2, 0);
+INSERT INTO cards VALUES (19, 'Meditate', 2, 2, 0, false);
+INSERT INTO cards VALUES (20, 'Do yoga', 2, 2, 0, false);
 
-INSERT INTO cards VALUES (21, 'Watch a movie', 2, 3, 0);
+INSERT INTO cards VALUES (21, 'Watch a movie', 2, 3, 0, false);
 
 
 SELECT pg_catalog.setval('cards_id_seq', 41, true);
