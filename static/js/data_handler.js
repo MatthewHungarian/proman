@@ -29,6 +29,13 @@ export let dataHandler = {
         .then(response => response.json())
         //.then(json => callback(json));
     },
+    _api_delete: function (url) {
+      fetch(url, {
+          method: 'DELETE'
+      })
+          .then(response => response.json())
+
+    },
     init: function () {
     },
     getBoards: function (callback) {
