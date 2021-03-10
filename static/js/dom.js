@@ -70,6 +70,7 @@ export let dom = {
             dom.addStatus();
             dom.renameStatus();
             dom.createCard();
+            dom.deleteStatus();
         });
     },
     showStatuses: function (statuses, board) {
@@ -78,7 +79,7 @@ export let dom = {
 
         for(let status of statuses){
             statusList += `
-                <div class="board-column">
+                <div class="board-column" data-id="${status.id}">
                     <div class="container">
                         <div class="board-column-title"><span class="column-title" data-id="${status.id}">${status.title}</span></div>
                         <div class="column-remove"><i class="fas fa-trash-alt"></i></div>
@@ -284,8 +285,19 @@ export let dom = {
             deleteCardIcon.addEventListener('click', function(event) {
                 let card = event.target.closest('.card');
                 let cardId = parseInt(card.dataset.id);
-                dataHandler._api_delete(`/delete-card/${cardId}`)
+                dataHandler._api_delete(`/delete-card/${cardId}`);
                 card.remove();
+            })
+        }
+    },
+    deleteStatus: function (){
+        let deleteStatusIcons = document.getElementsByClassName("column-remove");
+        for (let deleteStatusIcon of deleteStatusIcons) {
+            deleteStatusIcon.addEventListener('click', function(event) {
+                let status = event.target.closest('.board-column');
+                let statusId = parseInt(status.dataset.id);
+                dataHandler._api_delete(`/delete-column/${statusId}`);
+                dom.reloadEverything();
             })
         }
     }

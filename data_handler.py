@@ -60,3 +60,7 @@ def add_new_user(username, password):
 
 def delete_card(card_id):
     return data.delete_row('cards', card_id)
+
+
+def delete_column(column_id):
+    return data.delete_row('statuses', column_id)
