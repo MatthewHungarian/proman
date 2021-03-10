@@ -60,3 +60,7 @@ def add_new_user(username, password):
 
 def delete_card(card_id):
     return data.delete_row('cards', card_id)
+
+
+def update_archive_status(card_data):
+    return data.update_row('cards', 'is_archived', card_data['is_archived'], card_data['card_id'])

@@ -30,7 +30,7 @@ export let dom = {
                 boardList += `
                     <section class="board" id="board${board.id}">
                     <div class="board-header" id="header${board.id}"><span class="board-title" data-id="${board.id}">${board.title}</span>
-                    <button class="show-acrhive" data-board="${board.id}">Archived Cards</button></div>
+                    <button class="show-archive" data-board="${board.id}">Archived Cards</button></div>
                     </section>
                 `;
             }
@@ -51,6 +51,7 @@ export let dom = {
             dom.renameCard();
             dragAndDrop.initDragAndDrop();
             dom.deleteCard();
+            dom.archiveCard();
         });
     },
     showCards: function (cards) {
@@ -295,6 +296,17 @@ export let dom = {
                 let card = event.target.closest('.card');
                 let cardId = parseInt(card.dataset.id);
                 dataHandler._api_delete(`/delete-card/${cardId}`)
+                card.remove();
+            })
+        }
+    },
+    archiveCard: function (){
+        let archiveIcons = document.getElementsByClassName("card-archive");
+        for (let archiveIcon of archiveIcons) {
+            archiveIcon.addEventListener('click', function(event) {
+                let card = event.target.closest('.card');
+                let cardId = parseInt(card.dataset.id);
+                dataHandler.updateArchiveStatus(cardId);
                 card.remove();
             })
         }

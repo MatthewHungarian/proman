@@ -90,5 +90,10 @@ export let dataHandler = {
             data.push({card_id: card.dataset.id, order_n: order});
         }
         this._api_post('/update-card-order', data);
+    },
+
+    updateArchiveStatus: function (cardId) {
+        let data = {card_id: cardId, is_archived: true}
+        this._api_post('/archive-card', data)
     }
 };

@@ -107,6 +107,13 @@ def rename_card():
 def delete_card(card_id):
     return data_handler.delete_card(card_id)
 
+
+@app.route('/archive-card', methods=['POST'])
+@json_response
+def archive_card():
+    data = request.get_json()
+    return data_handler.update_archive_status(data)
+
   
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
