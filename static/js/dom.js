@@ -48,17 +48,20 @@ export let dom = {
         let outerHtml = '';
 
         for(let card of cards){
-            outerHtml = `
-                <div class="card" data-board="${card.board_id}" data-status="${card.status_id}" data-id="${card.id}">
-                    <div class="card-remove"><i class="fas fa-trash-alt" title="Delete"></i></div>
-                    <div class="card-archive"><i class="fas fa-file-archive" title="Archive"></i></div>
-                    <div class="card-title" data-id="${card.id}">${card.title}</div>
-                </div>
-            `;
+            if (!card['is_archived']) {
+                outerHtml = `
+                    <div class="card" data-board="${card.board_id}" data-status="${card.status_id}" data-id="${card.id}">
+                        <div class="card-remove"><i class="fas fa-trash-alt" title="Delete"></i></div>
+                        <div class="card-archive"><i class="fas fa-file-archive" title="Archive"></i></div>
+                        <div class="card-title" data-id="${card.id}">${card.title}</div>
+                    </div>
+                `;
 
-            let cardContainer = document.getElementById(`board${card.board_id}`);
-            let cardColumn = cardContainer.getElementsByClassName(`status${card.status_id}`)[0];
-            cardColumn.insertAdjacentHTML('beforeend', outerHtml);
+                let cardContainer = document.getElementById(`board${card.board_id}`);
+                let cardColumn = cardContainer.getElementsByClassName(`status${card.status_id}`)[0];
+                cardColumn.insertAdjacentHTML('beforeend', outerHtml);
+
+            }
         }
 
     },
