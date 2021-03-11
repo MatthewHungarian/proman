@@ -271,5 +271,11 @@ section.board{
 }
 
 .board-remove {
-    float: right
+    float: right;
+    cursor: pointer;
+}
+
+.board-remove:hover {
+    background: yellow;
+    color: red;
 }
