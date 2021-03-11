@@ -261,6 +261,11 @@ section.board{
     cursor: pointer;
 }
 
+.column-remove:hover {
+    background: yellow;
+    color: red;
+}
+
 .container {
     display: flex;
     justify-content: center;
