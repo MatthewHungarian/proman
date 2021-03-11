@@ -147,7 +147,7 @@ export let dom = {
                         }
                     });
                 }
-            });
+            }, {once: true});
         }
     },
     renameBoard: function () {
