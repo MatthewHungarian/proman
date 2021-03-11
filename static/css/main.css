@@ -1,10 +1,12 @@
 :root{
     --border-radius: 3px;
-    --status-1: #590000;
-    --status-2: #594300;
-    --status-3: #525900;
-    --status-4: #085900;
+    --status-1: #bc2734;
+    --status-2: #bc7233;
+    --status-3: #bc9d2d;
+    --status-4: #61bc3e;
     --status-5: #2C7BBD;
+    --status-6: mediumpurple;
+    --status-7: #de5667;
 }
 
 body{
@@ -84,8 +86,12 @@ section.board{
 
 .board-header{
     height: 50px;
-    background: #fff;
+    background: lightskyblue;
     border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.board-header.header0{
+    background: #fff;
 }
 
 .board-title{
@@ -136,7 +142,7 @@ section.board{
 .card{
     position: relative;
     background: #222;
-    color: #fff;
+    color: whitesmoke;
     border-radius: var(--border-radius);
     margin: 4px 0;
     padding: 4px;
@@ -161,6 +167,14 @@ section.board{
 
 .board-column:nth-of-type(5) .card{
     background: var(--status-5);
+}
+
+.board-column:nth-of-type(6) .card{
+    background: var(--status-6);
+}
+
+.board-column:nth-of-type(7) .card{
+    background: var(--status-7);
 }
 
 .card-remove{

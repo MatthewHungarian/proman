@@ -31,9 +31,11 @@
                      {% if username is none %}
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('registration') }}">Register</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('login') }}">Login </a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="">Refresh</a></li>
                     </ul>
                      {% else %}
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('logout') }}">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="">Refresh</a></li>
                     </ul>
                         <span class="navbar-text" id="user"> Signed in as: {{ username }}</span>
                      {% endif %}

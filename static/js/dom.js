@@ -28,8 +28,8 @@ export let dom = {
             if (board.user_id === user || board.user_id === 0) {
                 boardList += `
                     <section class="board" id="board${board.id}">
-                    <div class="board-header" id="header${board.id}"><span class="board-title" data-id="${board.id}">${board.title} </span>
-                    <span class="board-remove" title="Delete"><i class="fas fa-trash-alt board-remove"></i></span></div>
+                    <div class="board-header header${board.user_id}" id="header${board.id}"><span class="board-title" data-id="${board.id}">${board.title}</span>
+                    <span class="board-remove" title="Delete"><i class="fas fa-trash-alt board-remove"></i></span> </div>
                     </section>
                 `;
             }
@@ -56,16 +56,19 @@ export let dom = {
         let outerHtml = '';
 
         for(let card of cards){
-            outerHtml = `
-                <div class="card" data-board="${card.board_id}" data-status="${card.status_id}" data-id="${card.id}">
-                    <div class="card-remove" title="Delete"><i class="fas fa-trash-alt"></i></div>
-                    <div class="card-title" data-id="${card.id}">${card.title}</div>
-                </div>
-            `;
+            if (!card['is_archived']) {
+                outerHtml = `
+                    <div class="card" data-board="${card.board_id}" data-status="${card.status_id}" data-id="${card.id}">
+                        <div class="card-remove"><i class="fas fa-trash-alt" title="Delete"></i></div>
+                        <div class="card-title" data-id="${card.id}">${card.title}</div>
+                    </div>
+                `;
 
-            let cardContainer = document.getElementById(`board${card.board_id}`);
-            let cardColumn = cardContainer.getElementsByClassName(`status${card.status_id}`)[0];
-            cardColumn.insertAdjacentHTML('beforeend', outerHtml);
+                let cardContainer = document.getElementById(`board${card.board_id}`);
+                let cardColumn = cardContainer.getElementsByClassName(`status${card.status_id}`)[0];
+                cardColumn.insertAdjacentHTML('beforeend', outerHtml);
+
+            }
         }
 
     },
@@ -146,7 +149,7 @@ export let dom = {
                         }
                     });
                 }
-            });
+            }, {once: true});
         }
     },
     renameBoard: function () {
@@ -186,10 +189,13 @@ export let dom = {
                     addCardButton.insertAdjacentHTML('beforebegin', outerHtml);
                 } else if (addCardButton.previousSibling.id === "card-input") {
                     let cardId = document.getElementById("card-input").value;
-                    let boardId = addCardButton.dataset.id;
-                    document.getElementById("card-input").remove();
-                    dataHandler.createNewCard(cardId, boardId, 0);
-                    dom.reloadEverything();
+                    if (cardId === "") alert("Please don't leave this field empty");
+                    else {
+                        let boardId = addCardButton.dataset.id;
+                        document.getElementById("card-input").remove();
+                        dataHandler.createNewCard(cardId, boardId, 0);
+                        dom.reloadEverything();
+                    }
                 }
             });
         }
