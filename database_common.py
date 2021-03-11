@@ -6,6 +6,7 @@ import psycopg2
 import psycopg2.extras
 import urllib.parse
 
+
 def get_connection_string():
     # from Heroku how to
     urllib.parse.uses_netloc.append('postgres')
@@ -17,6 +18,7 @@ def get_connection_string():
         host=url.hostname,
         port=url.port
     )
+    print(connection)
     return connection
 
     # # setup connection string
