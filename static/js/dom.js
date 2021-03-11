@@ -324,7 +324,7 @@ export let dom = {
         for (let deleteBoardIcon of deleteBoardIcons) {
             deleteBoardIcon.addEventListener('click', (event) => {
                 let board = event.target.closest('.board');
-                let boardId = parseInt(board.id);
+                let boardId = parseInt(board.id.slice(5));
                 dataHandler._api_delete(`/delete-board/${boardId}`);
                 board.remove();
             })
