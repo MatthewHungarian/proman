@@ -64,3 +64,7 @@ def delete_card(card_id):
 
 def delete_column(column_id):
     return data.delete_row('statuses', column_id)
+
+
+def delete_board(board_id):
+    return data.delete_row('boards', board_id)

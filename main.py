@@ -118,6 +118,12 @@ def delete_card(card_id):
 def delete_column(column_id):
     return data_handler.delete_column(column_id)
 
+
+@app.route('/delete-board/<int:board_id>', methods=['DELETE'])
+@json_response
+def delete_board(board_id):
+    return data_handler.delete_board(board_id)
+
   
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():

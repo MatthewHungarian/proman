@@ -269,3 +269,7 @@ section.board{
 .board-column-title {
     padding-right: 5px;
 }
+
+.board-remove {
+    float: right
+}
