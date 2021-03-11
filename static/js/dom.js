@@ -23,14 +23,15 @@ export let dom = {
             if (!board['has_archive']) {
                 boardList += `
                     <section class="board" id="board${board.id}">
-                    <div class="board-header" id="header${board.id}"><span class="board-title" data-id="${board.id}">${board.title}</span></div>
+                    <div class="board-header" id="header${board.id}" data-archive="${board.has_archive}"><span class="board-title" data-id="${board.id}">${board.title}</span></div>
                     </section>
                 `;
             } else {
                 boardList += `
                     <section class="board" id="board${board.id}">
-                    <div class="board-header" id="header${board.id}"><span class="board-title" data-id="${board.id}">${board.title}</span>
-                    <button class="show-archive" data-board="${board.id}">Archived Cards</button></div>
+                        <div class="board-header" id="header${board.id}" data-archive="${board.has_archive}">
+                        <span class="board-title" data-id="${board.id}">${board.title}</span>
+                        <button class="show-archive" data-board="${board.id}">Archived Cards</button></div>
                     </section>
                 `;
             }
@@ -308,9 +309,13 @@ export let dom = {
                 let cardId = parseInt(card.dataset.id);
                 dataHandler.updateArchiveStatus(cardId);
                 let boardId = parseInt(card.dataset.board);
+                let boardHeader = document.getElementById(`header${boardId}`);
+                if (boardHeader.dataset.archive === "false") {
+                    boardHeader.dataset.archive = "true";
+                    boardHeader.insertAdjacentHTML("beforeend", `<button class="show-archive" data-board="${boardId}">Archived Cards</button>`);
+                    dataHandler.updateBoardArchiveStatus(boardId);
+                }
                 card.remove();
-                dataHandler.updateBoardArchiveStatus(boardId)
-                document.location.reload();
             })
         }
     },
