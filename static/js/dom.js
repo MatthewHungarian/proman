@@ -187,10 +187,13 @@ export let dom = {
                     addCardButton.insertAdjacentHTML('beforebegin', outerHtml);
                 } else if (addCardButton.previousSibling.id === "card-input") {
                     let cardId = document.getElementById("card-input").value;
-                    let boardId = addCardButton.dataset.id;
-                    document.getElementById("card-input").remove();
-                    dataHandler.createNewCard(cardId, boardId, 0);
-                    dom.reloadEverything();
+                    if (cardId === "") alert("Please don't leave this field empty");
+                    else {
+                        let boardId = addCardButton.dataset.id;
+                        document.getElementById("card-input").remove();
+                        dataHandler.createNewCard(cardId, boardId, 0);
+                        dom.reloadEverything();
+                    }
                 }
             });
         }
