@@ -10,8 +10,7 @@ import urllib.parse
 def get_connection_string():
     # from Heroku how to
     urllib.parse.uses_netloc.append('postgres')
-    # url = urllib.parse.urlparse(os.environ.get('DATABASE_URL'))
-    url = 'postgres://kkxydpphhumcqk:52ed37cf2ef6ffabbc37d83402b279572c0634350727fdd54e78e550baae3093@ec2-54-247-158-179.eu-west-1.compute.amazonaws.com:5432/da3vkrevkmns8o'
+    url = urllib.parse.urlparse(os.environ.get('DATABASE_URL'))
     connection = psycopg2.connect(
         database=url.path[1:],
         user=url.username,
