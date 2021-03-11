@@ -27,7 +27,7 @@ export let dom = {
             if (board.user_id === user || board.user_id === 0) {
                 boardList += `
                     <section class="board" id="board${board.id}">
-                    <div class="board-header" id="header${board.id}"><span class="board-title" data-id="${board.id}">${board.title}</span></div>
+                    <div class="board-header header${board.user_id}" id="header${board.id}"><span class="board-title" data-id="${board.id}">${board.title}</span></div>
                     </section>
                 `;
             }

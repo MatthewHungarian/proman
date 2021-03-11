@@ -84,8 +84,12 @@ section.board{
 
 .board-header{
     height: 50px;
-    background: #fff;
+    background: lightskyblue;
     border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.board-header.header0{
+    background: #fff;
 }
 
 .board-title{
