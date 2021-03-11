@@ -53,6 +53,7 @@ export let dom = {
             dragAndDrop.initDragAndDrop();
             dom.deleteCard();
             dom.archiveCard();
+            dom.displayArchive()
         });
     },
     showCards: function (cards) {
@@ -323,9 +324,14 @@ export let dom = {
         let displayArchiveButtons = document.getElementsByClassName('show-archive');
         for (let displayArchiveButton of displayArchiveButtons) {
             displayArchiveButton.addEventListener('click', function(event) {
-                console.log(event.target)
+                let boardId = event.target.dataset.board;
+                dataHandler.getCardsByBoardId(boardId, function (cards) {
+                    dom.showArchiveModal(cards);
+                })
             })
         }
+    },
+    showArchiveModal: function (cards){
     }
 };
 
