@@ -275,6 +275,11 @@ section.board{
     cursor: pointer;
 }
 
+.column-remove:hover {
+    background: yellow;
+    color: red;
+}
+
 .container {
     display: flex;
     justify-content: center;
@@ -282,4 +287,14 @@ section.board{
 
 .board-column-title {
     padding-right: 5px;
+}
+
+.board-remove {
+    float: right;
+    cursor: pointer;
+}
+
+.board-remove:hover {
+    background: yellow;
+    color: red;
 }

@@ -13,6 +13,7 @@ export let dom = {
             dom.renameBoard();
             dom.hideNshowBoard();
             dom.loadStatuses(boards);
+            dom.deleteBoard();
         });
     },
     showBoards: function (boards) {
@@ -27,7 +28,8 @@ export let dom = {
             if (board.user_id === user || board.user_id === 0) {
                 boardList += `
                     <section class="board" id="board${board.id}">
-                    <div class="board-header header${board.user_id}" id="header${board.id}"><span class="board-title" data-id="${board.id}">${board.title}</span></div>
+                    <div class="board-header header${board.user_id}" id="header${board.id}"><span class="board-title" data-id="${board.id}">${board.title}</span>
+                    <span class="board-remove" title="Delete"><i class="fas fa-trash-alt board-remove"></i></span> </div>
                     </section>
                 `;
             }
@@ -322,6 +324,17 @@ export let dom = {
                 dom.reloadEverything();
             })
         }
-    }
+    },
+    deleteBoard: function (){
+        let deleteBoardIcons = document.getElementsByClassName("board-remove");
+        for (let deleteBoardIcon of deleteBoardIcons) {
+            deleteBoardIcon.addEventListener('click', (event) => {
+                let board = event.target.closest('.board');
+                let boardId = parseInt(board.id.slice(5));
+                dataHandler._api_delete(`/delete-board/${boardId}`);
+                board.remove();
+            })
+        }
+    },
 };
 
