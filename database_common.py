@@ -8,7 +8,7 @@ import urllib.parse
 
 
 def get_connection_string():
-    # from Heroku how to
+    # # from Heroku how to
     urllib.parse.uses_netloc.append('postgres')
     url = urllib.parse.urlparse(os.environ.get('DATABASE_URL'))
     connection = psycopg2.connect(
@@ -18,8 +18,34 @@ def get_connection_string():
         host=url.hostname,
         port=url.port
     )
-    print(connection)
+
     return connection
+
+        # postgres: // {user}: {password} @ {hostname}:{port} / {database - name} <- heroku format https://devcenter.heroku.com/changelog-items/438
+    # connection = psycopg2.connect(
+    #     database=url.path[1:],
+    #     user=url.username,
+    #     password=url.password,
+    #     host=url.hostname,
+    #     port=url.port
+    # )
+    # print(connection)
+    # print(str(connection))
+    # return connection
+
+    # # from Heroku how to
+    # urllib.parse.uses_netloc.append('postgres')
+    # url = urllib.parse.urlparse(os.environ.get('DATABASE_URL'))
+    # connection = psycopg2.connect(
+    #     database=url.path[1:],
+    #     user=url.username,
+    #     password=url.password,
+    #     host=url.hostname,
+    #     port=url.port
+    # )
+    # print(connection)
+    # print(str(connection))
+    # return connection
 
     # # setup connection string
     # # to do this, please define these environment variables first
@@ -44,8 +70,8 @@ def get_connection_string():
 
 def open_database():
     try:
-        connection_string = get_connection_string()
-        connection = psycopg2.connect(connection_string)
+        connection = get_connection_string()
+        # connection = psycopg2.connect(connection_string)
         connection.autocommit = True
     except psycopg2.DatabaseError as exception:
         print('Database connection problem')
