@@ -1,3 +1,300 @@
-#boards {
-    background-color: green;
+:root{
+    --border-radius: 3px;
+    --status-1: #bc2734;
+    --status-2: #bc7233;
+    --status-3: #bc9d2d;
+    --status-4: #61bc3e;
+    --status-5: #2C7BBD;
+    --status-6: mediumpurple;
+    --status-7: #de5667;
+}
+
+body{
+    min-width: 620px;
+    background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png);
+    font-family: sans-serif;
+}
+
+body.login {
+    background: #ddd url(https://images.unsplash.com/photo-1542888743-a0323a8bd3df?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2001&q=80);
+}
+
+h1, .board-title, .board-column-title{
+    font-weight: 100;
+}
+
+h1{
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    font-size: 4em;
+    letter-spacing: 5px;
+    transform: scale(1.2, 1);
+}
+
+input {
+    margin-bottom: 15px;
+    margin-right: 15px;
+}
+
+input.column-rename {
+    width: 70%;
+    margin-bottom: 0px;
+}
+
+input.card-rename {
+    width: 70%;
+    margin-bottom: 0px;
+}
+
+button{
+    background: #222;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    font-family: sans-serif;
+    padding: 4px 10px;
+}
+
+.board-container, #buttons{
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+#public-div, #private-div, #new-column-div {
+    display: inline;
+}
+
+#public-div {
+    margin-left: 20px;
+}
+
+#private-div {
+    margin-left: 5px;
+}
+
+#new-column-div {
+    margin-left: 5px;
+}
+
+section.board{
+    margin: 20px;
+    border: aliceblue;
+    background: #ffffff90;
+    border-radius: 3px;
+}
+
+.board-header{
+    height: 50px;
+    background: lightskyblue;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.board-header.header0{
+    background: #fff;
+}
+
+.board-title{
+    margin: 13px;
+    display: inline-block;
+    font-size: 20px;
+}
+.board-title, .board-add, .board-toggle{
+    display: inline-block;
+}
+
+.input-field{
+    margin: 13px;
+    display: inline-block;
+    font-size: 20px;
+}
+
+.board-toggle{
+    float: right;
+    margin: 13px;
+}
+
+.board-columns{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.board-column{
+    padding: 10px;
+    flex: 1;
+}
+
+.board-column-content{
+    min-height: 25px;
+}
+
+/*.board-column-content:empty{
+    border: 4px solid #cdcdcd;
+    margin-top: 4px;
+    border-radius: 10px;
+    background: #eee;
+}*/
+
+.board-column-title{
+    text-align: center;
+}
+
+.card{
+    position: relative;
+    background: #222;
+    color: whitesmoke;
+    border-radius: var(--border-radius);
+    margin: 4px 0;
+    padding: 4px;
+    border: 2px solid #A7A7A4;
+}
+
+.board-column:nth-of-type(1) .card{
+    background: var(--status-1);
+}
+
+.board-column:nth-of-type(2) .card{
+    background: var(--status-2);
+}
+
+.board-column:nth-of-type(3) .card{
+    background: var(--status-3);
+}
+
+.board-column:nth-of-type(4) .card{
+    background: var(--status-4);
+}
+
+.board-column:nth-of-type(5) .card{
+    background: var(--status-5);
+}
+
+.board-column:nth-of-type(6) .card{
+    background: var(--status-6);
+}
+
+.board-column:nth-of-type(7) .card{
+    background: var(--status-7);
+}
+
+.card-remove{
+    display: block;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.card-title{
+    padding-right: 16px;
+}
+
+.draggable {
+    background: #e0ffee;
+    border: 1px solid #57a57a;
+    width: 200px;
+    padding: 5px;
+    margin: 3px;
+}
+
+.drop-zone {
+    width: 300px;
+    padding: 10px;
+    margin: 10px;
+    background: #eee;
+    border: 2px solid #000;
+    min-height: 6px;
+}
+
+/* Dragged source element style */
+.dragged {
+    opacity: .6;
+    border-style: dashed;
+}
+
+/* Drag feedback image style */
+.drag-feedback {
+    background: lightskyblue;
+    border: 1px solid dodgerblue;
+}
+
+/* drop zone highlights */
+.active-zone {
+    background: #DAD691;
+    border: 2px solid #A7A7A4;
+}
+
+.over-zone {
+    background: #7ACEC5;
+    border: 2px solid #2CBDAE;
+}
+
+/* Style for text drag test area */
+.drag-text-test {
+    width: 300px;
+    margin: 10px;
+}
+
+.drag-text-test textarea {
+    width: 100%;
+    padding: 10px;
+    height: 36px;
+}
+
+.flexbox-label {
+    margin-top: 10px;
+}
+
+.flexbox-btn {
+    margin-top: 15px;
+}
+
+.flexbox-container {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    align-items: center;
+    background-color: #FFF;
+    min-height: 13vh;
+    width: 25vh;
+    min-width: 250px;
+    margin: auto;
+}
+
+.flash-message {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.flash-message.error {
+    color: red;
+}
+
+.column-remove {
+    cursor: pointer;
+}
+
+.column-remove:hover {
+    background: yellow;
+    color: red;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.board-column-title {
+    padding-right: 5px;
+}
+
+.board-remove {
+    float: right;
+    cursor: pointer;
+}
+
+.board-remove:hover {
+    background: yellow;
+    color: red;
 }

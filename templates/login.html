@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+
+{% block head %}
+    {{ super() }}
+    <title>Login</title>
+{% endblock head %}
+
+{% block body %}
+    <body class="login">
+        <h1>Login</h1>
+        <form action="/login" method="post" class="flexbox-container" enctype=multipart/form-data>
+            <label for="username"><strong>Username:</strong></label>
+            <input id= "username" name="username" class="input_class" type= "text" required>
+            <label for="password" class="flexbox-label"><strong>Password:</strong></label>
+            <input id="password" name="password" class="input_class" type= "password" required>
+            <button type="submit" class="flexbox-btn" value=Upload>Sign in</button>
+        </form>
+
+    {% for mesg in get_flashed_messages() %}
+        <p class="flash-message">{{ mesg }}</p>
+    {% endfor %}
+
+    {% if error %}
+        <p class="flash-message error"><strong>Error:</strong> {{ error }}</p>
+    {% endif %}
+
+    </body>
+{% endblock body %}

@@ -19,6 +19,22 @@ export let dataHandler = {
     _api_post: function (url, data, callback) {
         // it is not called from outside
         // sends the data to the API, and calls callback function
+        fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+        })
+        .then(response => response.json())
+        //.then(json => callback(json));
+    },
+    _api_delete: function (url) {
+      fetch(url, {
+          method: 'DELETE'
+      })
+          .then(response => response.json())
+
     },
     init: function () {
     },
@@ -32,26 +48,47 @@ export let dataHandler = {
             callback(response);
         });
     },
-    getBoard: function (boardId, callback) {
-        // the board is retrieved and then the callback function is called with the board
-    },
+
     getStatuses: function (callback) {
         // the statuses are retrieved and then the callback function is called with the statuses
+        this._api_get('/get-statuses', (response) => {
+            this._data['statuses'] = response;
+            callback(response);
+        });
     },
-    getStatus: function (statusId, callback) {
-        // the status is retrieved and then the callback function is called with the status
-    },
+
     getCardsByBoardId: function (boardId, callback) {
         // the cards are retrieved and then the callback function is called with the cards
+        this._api_get(`/get-cards/${boardId}`, (response) => {
+            this._data['cards'] = response;
+            callback(response);
+        });
     },
     getCard: function (cardId, callback) {
         // the card is retrieved and then the callback function is called with the card
     },
-    createNewBoard: function (boardTitle, callback) {
-        // creates new board, saves it and calls the callback function with its data
-    },
+
     createNewCard: function (cardTitle, boardId, statusId, callback) {
-        // creates new card, saves it and calls the callback function with its data
+        let data = {title: cardTitle, board_id: boardId, status_id: statusId};
+        this._api_post('/create-card', data);
+    },
+
+    createNewStatus: function (newStatus) {
+        let data = {title: newStatus};
+        this._api_post('/add-column', data);
+    },
+
+    updateCardStatus: function (cardId, cardStatus) {
+        let data = {card_id: cardId, status_id: cardStatus};
+        this._api_post('/update-card-status', data);
+    },
+
+    updateCardOrder: function (cards) {
+        let data = [];
+        for (let card of cards){
+            let order = Array.prototype.indexOf.call(card.parentNode.children, card);
+            data.push({card_id: card.dataset.id, order_n: order});
+        }
+        this._api_post('/update-card-order', data);
     }
-    // here comes more features
 };

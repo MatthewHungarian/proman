@@ -1,21 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+{% block head %}
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>ProMan</title>
+
+        <title>ProFriend</title>
 
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='favicon/favicon-96x96.png') }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
 
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
         <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
+{% endblock head %}
+
+{% block body %}
     <body>
-        <h1>ProMan</h1>
-        <div id="boards">Boards are loading...</div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                     {% if username is none %}
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('registration') }}">Register</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('login') }}">Login </a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="">Refresh</a></li>
+                    </ul>
+                     {% else %}
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('logout') }}">Logout</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="">Refresh</a></li>
+                    </ul>
+                        <span class="navbar-text" id="user"> Signed in as: {{ username }}</span>
+                     {% endif %}
+            </div>
+        </nav>
+
+        <h1>ProFriend</h1>
+
+        <div id="buttons">
+            <div id='public-div'>
+                <button class="create-board" id='public-button' data-user="0">CREATE NEW BOARD</button>
+            </div>
+            {% if user_id %}
+            <div id='private-div'>
+                <button class="create-board" id='private-button' data-user="{{ user_id }}">CREATE NEW PRIVATE BOARD</button>
+            </div>
+            {% endif %}
+            <div id="new-column-div">
+                <button type="button" id="add-new-column" class="">ADD NEW COLUMN</button>
+            </div>
+        </div>
+        <div id="boards"></div>
     </body>
+{% endblock body %}
 </html>
